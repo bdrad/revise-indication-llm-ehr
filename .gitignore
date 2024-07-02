@@ -1,1 +1,3 @@
 data/*
+models/versa/.env
+.ipynb_checkpoints/
