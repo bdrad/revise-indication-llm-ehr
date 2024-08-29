@@ -1,0 +1,669 @@
+14M MS-HI-ACUITY - Pathology and Cytology (Physician) | 2023-02-12 09:24:00
+UNIVERSITY ***** ***** ***** *****
+
+DEPARTMENT OF PATHOLOGY
+
+***** ***** ***** *****
+
+***** *****, ***** *****
+
+
+
+***** ***** ***** *****
+
+***** *****, ***** *****
+
+
+
+***** ***** ***** ***** (for consultation)
+
+***** *****, ***** *****
+
+
+
+
+
+PATHOLOGY REPORT
+
+
+
+
+
+
+
+Patient Name: *****, *****
+
+*****. Rec.#: *****
+
+DOB: 01/05/1976 (Age: 47)
+
+Legal Sex: Male
+
+Accession #: *****-*****
+
+Visit #: *****
+
+Service Date: 06/02/2023
+
+Received: 06/02/2023
+
+Location: PPE
+
+Client:***** 
+
+Provider(s): ***** *****. *****-***** ((*****) *****-*****)
+
+
+
+
+
+
+
+
+
+FINAL PATHOLOGIC DIAGNOSIS
+
+
+
+*****. ***** anterior middle turbinate, biopsy:  Fibrovascular tissue,
+
+sinonasal mucosa and scant bone, negative for tumor.
+
+ 
+
+B. Posterior superior middle turbinate, biopsy:  Denuded sinonasal
+
+mucosa, negative for tumor; see comment.
+
+ 
+
+C. Fovea, biopsy:  Sinonasal mucosa and bone, negative for tumor.
+
+ 
+
+D. Brain, biopsy:  Brain tissue, negative for tumor; see comment.
+
+ 
+
+E. Middle turbinate, excision:  Turbinate tissue with chronic
+
+inflammation, negative for tumor.
+
+ 
+
+F. "Main specimen", excision:  Biphenotypic sinonasal sarcoma, extending
+
+to fragment edges; see comment.
+
+ 
+
+G. Ethmoid near lamina, biopsy:  Viable lamellar bone and sinonasal
+
+mucosa with mild chronic inflammation and crush artifact, negative for
+
+tumor.
+
+ 
+
+H. Anterior sphenoid wall, biopsy:  Viable lamellar bone and sinonasal
+
+mucosa with mild chronic inflammation, negative for tumor.
+
+ 
+
+I. Posterior anterior skull base, biopsy:  Viable lamellar bone and
+
+sinonasal mucosa with mild chronic inflammation, negative for tumor; see
+
+comment.
+
+ 
+
+J. Lamina mucosa, biopsy:  Sinonasal mucosa with mild chronic
+
+inflammation, negative for tumor.
+
+ 
+
+K. Frontal sinus floor, biopsy:  Viable lamellar bone and sinonasal
+
+mucosa with mild chronic inflammation, negative for tumor; see comment.
+
+ 
+
+L. Skull base, biopsy:  Biphenotypic sinonasal sarcoma.
+
+ 
+
+M. Skull base attachment, biopsy:  Biphenotypic sinonasal sarcoma.
+
+ 
+
+N. Turbinate at *****, biopsy:  Biphenotypic sinonasal sarcoma.
+
+ 
+
+O. Anterior skull base bone, biopsy:  Biphenotypic sinonasal sarcoma.
+
+ 
+
+*****. *****, biopsy: Biphenotypic sinonasal sarcoma; see comment.
+
+ 
+
+Q. Olfactory track, biopsy:  Fragments of neural tissue, negative for
+
+tumor.
+
+ 
+
+R. Anterior most turbinate margin, biopsy:  Fragments of turbinate
+
+tissue, negative for tumor; see comment.
+
+ 
+
+S. Left septal mucosa, biopsy:  Biphenotypic sinonasal sarcoma; see
+
+comment.
+
+
+
+
+
+
+
+COMMENT:
+
+Immunohistochemical stains were necessary to evaluate this case and
+
+establish the correct diagnosis. The following stains were performed and
+
+evaluated here at ***** on the below blocks and are interpreted as
+
+follows
+
+Blocks *****, S1:
+
+- SMA:  Positive for biphenotypic sinonasal sarcoma.
+
+Blocks B1, D1, I1, K1, R1:
+
+- SMA:  Negative for biphenotypic sinonasal sarcoma.
+
+
+
+Block *****:
+
+- *****:  Positive for biphenotypic sinonasal sarcoma.
+
+Blocks B1, I1, K1, R1:
+
+- *****:  Negative for biphenotypic sinonasal sarcoma.
+
+
+
+Soft Tissue Sarcoma Synoptic Comment
+
+
+
+***** treatment: None.
+
+Procedure: Sinonasal resection.
+
+Tumor focality: Unifocal.
+
+Tumor site: Left superior nasal cavity.
+
+Size of tumor: at least 1.4 x 0.9 x 1.8 cm (gross measurements).
+
+Type of tumor (WHO): Biphenotypic sinonasal sarcoma.
+
+Tumor grade: Low grade.by FNCLCC system
+
+Mitotic rate: 1 / 10 hpf.
+
+Necrosis: Present, focal
+
+Lymphovascular invasion: Not identified. 
+
+Margins:  Involved by sarcoma; separate specimens: parts L-P, S.
+
+Treatment effect (if applicable): Not applicable.
+
+Lymph node status: None submitted or found 
+
+Distant metastasis: Not applicable.
+
+AJCC 8th Edition Stage:   *****.
+
+Ancillary studies: ***** performed on the initial biopsy demonstrated
+
+a *****::WWTR1 fusion, a frameshift mutation in ***** and deletion in
+
+***** *****, compatible with biphenotypic sinonasal sarcoma (*****-*****).
+
+
+
+
+
+
+
+
+
+
+
+Specimen(s) Received
+
+A:***** anterior middle turbinate
+
+B:Posterior superior middle turbinate
+
+C:Fovea
+
+D:Brains
+
+E:Middle turbinate
+
+F:Main specimen
+
+G:Ethmoid near lamina
+
+H:Anterior sphenoid wall
+
+I:Posterior anterior skull base
+
+J:Lamina mucosa
+
+K:Frontal sinus floor
+
+L:Skull base
+
+M:Skull base attachment
+
+N:Turbinate at *****
+
+O:Anterior skull base bone
+
+P:*****
+
+Q:Olfactory track
+
+R:Anterior most turbinate margin
+
+S:Left septal mucosa
+
+
+
+
+
+Intraoperative Diagnosis
+
+*****. ***** anterior middle turbinate margin, biopsy: No tumor.
+
+Additional level sections were performed and evaluated to confirm the
+
+diagnosis. 
+
+- Procedure (FS/TP/*****):  FS.
+
+- Pathologist(s):  Drs. ***** *****, *****, ***** *****, *****.
+
+- Reported at (date, time):  06/02/2023 at 10:53AM.
+
+- Performed at:  ***** ***** *****., ***** *****, ***** *****.
+
+
+
+B. Posterior superior middle turbinate margin, biopsy: No tumor.
+
+Additional level sections were performed and evaluated to confirm the
+
+diagnosis. 
+
+- Procedure (FS/TP/*****):  FS.
+
+- Pathologist(s):  Drs. ***** *****, *****, ***** *****, *****.
+
+- Reported at (date, time):  06/02/2023 at 10:53AM.
+
+- Performed at:  ***** ***** *****., ***** *****, ***** *****.
+
+
+
+C. Fovea #10, biopsy: No tumor. Additional level sections were performed
+
+on the block to confirm the diagnosis. 
+
+- Procedure (FS/TP/*****):  FS.
+
+- Pathologist(s):  Dr. ***** *****, *****.
+
+- Reported at (date, time):  06/02/2023 at 11:23AM.
+
+- Performed at:  ***** ***** *****., ***** *****, ***** *****
+
+
+
+*****. Brain, nasal sinus tumor, resection: Hypercellular brain, favor
+
+reactive. 
+
+- Procedure (FS/TP/*****):  FS.
+
+- Pathologist(s):  Dr. ***** ***** (*****).
+
+- Reported at (date, time):  06/02/2023 at 13:12PM.
+
+- Performed at:  ***** ***** *****., ***** *****, ***** *****.
+
+
+
+
+
+
+
+Clinical History
+
+The patient is 47 years old with 3.6 cm biphenotypic sinonasal sarcoma
+
+(*****-*****) of the L superior nasal cavity, no prior treatment.  The
+
+patient undergoes tumor resection.  Intraoperative findings include
+
+tumor involving the middle turbinate and extending anteriorly, tumor
+
+along the left ethmoid roof just anterior to posterior ethmoid artery,
+
+and glue-like tissue along the cribriform.
+
+
+
+
+
+
+
+Gross Description
+
+The case is received fresh in 19 parts each labeled with the patient's
+
+name and medical record number.
+
+
+
+Part A is labeled "superior anterior middle turbinate" and consists of a
+
+single, irregular, red-white soft tissue fragment (0.8 x 0.7 x 0.1 cm). 
+
+The specimen is entirely submitted for frozen section diagnosis and the
+
+frozen section remnant is submitted in cassette *****.  (cut by dab;
+
+***** by *****)
+
+
+
+Part B is labeled "posterior superior middle turbinate" and consists of
+
+a single, irregular, red soft tissue fragment (0.4 x 0.2 x 0.2 cm).  The
+
+specimen is entirely submitted for frozen section diagnosis and the
+
+frozen section remnant is submitted in cassette *****.  (cut by dab;
+
+***** by *****).
+
+
+
+Part C is labeled "fovea" and consists of a single, irregular, red soft
+
+tissue fragment (0.5 x 0.3 x 0.1 cm).  The specimen is entirely
+
+submitted for frozen section diagnosis and the frozen section remnant is
+
+submitted in cassette *****. (cut by *****; ***** by *****)
+
+
+
+Part D is received fresh and additionally labeled "brains- frozen," and
+
+consists of an unoriented fragment of soft, irregular red tissue (0.7 x
+
+0.4 x 0.2 cm in aggregate).  A portion of the specimen is frozen for
+
+frozen section diagnosis and cytologic preparation, with the frozen
+
+section remnant submitted in cassette *****.  The remaining tissue is
+
+submitted in cassette *****.  (rks)
+
+
+
+Part E is received fresh and additionally labeled "middle turbinate,"
+
+and consists of 1 unoriented portion of ***** cartilage (2.4 x 0.9 x 0.3
+
+cm).  The margin is inked in blue.  The specimen is submitted entirely
+
+in cassettes E1-E2.  (*****)
+
+ 
+
+Part F is received fresh and additionally labeled "main specimen," and
+
+consists of 1 unoriented portion tan-brown tissue (3.1 x 2 x 1.2 cm)
+
+with smooth, tan mucosa on one side, containing a fleshy white
+
+well-demarcated mass (1.4 x 0.9 x 1.8 cm). The mass abuts the mucosal
+
+and soft tissue margins.  Several unoriented fragments of *****-brown soft
+
+tissue (2 x 1 x 0.6 cm in aggregate) accompany the main specimen.  The
+
+margins of the main specimen are inked in blue.  
+
+
+
+CASSETTES: The specimen is submitted entirely as follows: 
+
+F1-F6:     Mass, submitted entirely.
+
+F7-F8:     Additional friable soft tissue, submitted entirely. (*****)
+
+ 
+
+Part G is received fresh and additionally labeled "ethmoid near lamina,"
+
+and consists of 3 fragments of white cartilage (0.7 x 0.6 x 0.3 cm
+
+aggregate).  The specimen is submitted entirely in cassette *****.  (*****)
+
+ 
+
+Part H is received fresh and additionally labeled "anterior sphenoid
+
+wall," and consists of 3 unoriented fragments of white cartilage (0.9 x
+
+0.7 x 0.3 cm in aggregate).  The specimen is submitted entirely in
+
+cassette *****.  (*****)
+
+
+
+Part I is received fresh and additionally labeled "posterior anterior
+
+skull base," and consists of multiple fragments of white bone and brown
+
+soft tissue (8 x 6 x 2 mm in aggregate).  The specimen is submitted
+
+entirely in cassette *****.  (*****)
+
+ 
+
+Part J is received fresh and additionally labeled "lamina mucosa," and
+
+consists of 1 unoriented fragment of smooth translucent mucosa and rough
+
+brown soft tissue (0.8 x 0.4 x 0.2 cm).  The specimen is submitted
+
+entirely in cassette *****.  (*****)
+
+ 
+
+Part K is received fresh and additionally labeled "frontal sinus floor,"
+
+and consists of multiple unoriented fragments of brown and translucent
+
+cartilage and soft tissue (0.6 x 0.5 x 0.1 cm in aggregate.  The
+
+specimen is submitted entirely in cassette *****.  (*****)
+
+ 
+
+Part L is received fresh and additionally labeled "skull base," and
+
+consists of multiple unoriented fragments of brown soft tissue and white
+
+bone (1.9 x 1.9 x 0.5 cm in aggregate).  The specimen is submitted
+
+entirely in cassettes L1-L2.  (*****)
+
+ 
+
+Part M is received fresh and additionally labeled "skull base
+
+attachment," and consists of 1 unoriented fragment of brown soft tissue
+
+(0.4 x 0.3 x 0.2 cm).  The specimen is submitted entirely in cassette
+
+M1.  (*****)
+
+ 
+
+Part N is received fresh and additionally labeled "turbinate *****," and
+
+consists of 1 unoriented fragment of *****-brown tissue (0.4 x 0.2 x 0.1
+
+cm).  The specimen is submitted entirely in cassette *****.  (*****)
+
+ 
+
+Part O is received fresh and additionally labeled "anterior skull base
+
+bone," and consists of fragments (1.3 x 1 x 0.3 cm in aggregate).  The
+
+specimen is submitted entirely in cassette ***** after decalcification in
+
+decal stat.  (*****)
+
+ 
+
+Part P is received fresh and additionally labeled "*****," and consists
+
+of multiple unoriented brown and white tissue fragments (0.7 x 0.6 x 0.2
+
+cm in aggregate).  The specimen is submitted entirely in cassette *****. 
+
+(*****)
+
+ 
+
+Part Q is received fresh and additionally labeled "olfactory tract," and
+
+consists of 1 unoriented fragment of smooth, soft, white tissue (0.3 x
+
+0.2 x 0.2 cm).  The specimen is submitted entirely in cassette *****. 
+
+(*****)
+
+ 
+
+Part R is received fresh and additionally labeled "anterior most
+
+turbinate margin," and consists of 1 unoriented fragment of friable
+
+brown soft tissue (0.6 x 0.5 x 0.2 cm).  The specimen is submitted
+
+entirely in cassette *****.  (*****)
+
+ 
+
+Part S is received fresh and additionally labeled "left septal mucosa,"
+
+and consists of 1 unoriented brown fragment of mucosa and soft tissue
+
+(0.5 x 0.3 x 0.2 cm).  The specimen is submitted entirely in cassette
+
+S1.  (*****)
+
+
+
+
+
+
+
+
+
+The diagnosis may have been rendered in whole, or in part, using whole
+
+slide digital images of the glass slides on *****' FDA-approved (21
+
+CFR *****.*****) PIPS-based platform validated at *****.
+
+
+
+If immunofluorescence, immunohistochemistry or in-situ hybridization was
+
+performed and evaluated at ***** in the above report, all controls
+
+performed with the stains reported above reacted appropriately. These
+
+stains were developed and their performance characteristics determined
+
+by the UCSF Medical Center Department of Pathology. They have not been
+
+cleared or approved by the U. S. Food and Drug Administration. The FDA
+
+has determined that such clearance or approval is not necessary. These
+
+tests are used for clinical purposes. They should not be regarded as
+
+investigational or for research. This laboratory is certified under the
+
+Clinical Laboratory Improvement Amendments of 1988 ("CLIA") as qualified
+
+to perform high-complexity clinical testing.
+
+
+
+Diagnosis based on microscopic and/or gross examinations.  Final
+
+Diagnosis made by attending pathologist following review of all
+
+pathology slides (histochemical quality is satisfactory).  The attending
+
+pathologist has reviewed all dictations, including prosector work, and
+
+preliminary interpretations performed by any resident involved in the
+
+case and performed all necessary edits before signing the final report.
+
+
+
+***** *****. *****/Pathology Resident
+
+***** *****/Pathologist
+
+     Electronically signed out on *****/*****/***** *****:*****
+
+
+
+
+
+Reviewed at ***** ***** ***** ***** ***** ***** ***** ***** ***** *****
+
+*****
+
+CLIA ***** ***** ***** MD
+

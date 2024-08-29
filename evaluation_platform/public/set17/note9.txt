@@ -1,0 +1,83 @@
+PERIOP PARN - Procedures (Physician) | 2023-02-12 08:57:00
+***** ***** *****, MD     *****/*****/*****  9:03 AM
+
+Airway
+
+Date/Time: *****/*****/***** 8:06 AM
+
+Urgency: elective
+
+
+
+
+
+
+
+Final Airway Details
+
+Final airway type: endotracheal airway
+
+
+
+
+
+Successful airway: ETT - single
+
+Cuffed: yes 
+
+Successful intubation technique: video laryngoscopy - *****
+
+Endotracheal tube insertion site: oral
+
+Blade: *****
+
+Blade size: #4
+
+ETT size (mm): 7.5
+
+*****-***** Classification (DL): grade I - full view of glottis
+
+Placement verified by: chest auscultation, capnometry and chest rise 
+
+Cuff volume (mL): 8
+
+Measured from: teeth
+
+ETT Depth (cm): 23
+
+Number of attempts at approach: 1
+
+Number of other approaches attempted: 0
+
+Tube passed through cords easily
+
+General Information and *****
+
+Patient location during procedure: OR
+
+Performed: anesthesia resident 
+
+Anesthesiologist: ***** *****, MBBS
+
+Resident/Fellow/CRNA: ***** ***** *****, MD
+
+
+
+Indications and Patient Condition
+
+Indications for airway management: anesthesia
+
+Sedation level: anesthesia
+
+*****: yes
+
+Patient position: sniffing
+
+
+
+
+
+
+
+For full procedure information, see associated anesthesia event/encounter.
+

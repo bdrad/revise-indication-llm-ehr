@@ -1,0 +1,3 @@
+PERIOP PARN - Note associated with ED Event | 2023-02-12 00:00:00
+All of the following items below were discussed/occurred:  1. Identification of the patient, key family member(s) or patient surrogate  2. Identification of the responsible practitioner (primary service)  3. Discussion of pertinent medical history  4. The procedure, procedure course, and the reason for the procedure  5. Anesthetic management and issues/concerns  6. Expectations/plans for the early post procedure period  7. Review of the Anesthesia Record Report or Anesthesia Handoff Report  8. Opportunity for questions and acknowledgment of understanding of report  9. Review of recovery area patient vital signs (see recovery documentation)  
+

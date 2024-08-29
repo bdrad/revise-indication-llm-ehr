@@ -6,9 +6,68 @@ import Slider from '@/components/Slider';
 import { redirect } from 'next/navigation'
 import { getSetNumber, signout, submitData } from "./actions";
 
+
+
 export default function Home() {
 
   const [setNumber, setSetNumber] = useState(1); // Default to 1 or any other placeholder value
+  const [exam, setExam] = useState("")
+  const [selectedIndication, setSelectedIndication] = useState('Indication 1');
+
+  const IndicationSelector = () => {
+    const handleSelection = (event: { target: { value: React.SetStateAction<string>; }; }) => {
+      setSelectedIndication(event.target.value);
+    };
+
+    return (
+      <div className="p-4">
+          <div className="flex items-center mb-2">
+            <input
+              type="radio"
+              id="indication1"
+              name="indication"
+              value="Indication 1"
+              checked={selectedIndication === 'Indication 1'}
+              onChange={handleSelection}
+              className="mr-2"
+            />
+            <label htmlFor="indication1" className="text-md">
+              Indication 1
+            </label>
+          </div>
+
+          <div className="flex items-center mb-2">
+            <input
+              type="radio"
+              id="indication2"
+              name="indication"
+              value="Indication 2"
+              checked={selectedIndication === 'Indication 2'}
+              onChange={handleSelection}
+              className="mr-2"
+            />
+            <label htmlFor="indication2" className="text-md">
+              Indication 2
+            </label>
+          </div>
+
+          <div className="flex items-center mb-2">
+            <input
+              type="radio"
+              id="indication3"
+              name="indication"
+              value="Indication 3"
+              checked={selectedIndication === 'Indication 3'}
+              onChange={handleSelection}
+              className="mr-2"
+            />
+            <label htmlFor="indication3" className="text-md">
+              Indication 3
+            </label>
+          </div>
+      </div>
+    );
+  };
 
   const [indications, setIndications] = useState({
     indication1: {
@@ -41,7 +100,17 @@ export default function Home() {
     note7: {title: "", text: ""},
     note8: {title: "", text: ""},
     note9: {title: "", text: ""},
-    note10: {title: "", text: ""}
+    note10: {title: "", text: ""},
+    note11: {title: "", text: ""},
+    note12: {title: "", text: ""},
+    note13: {title: "", text: ""},
+    note14: {title: "", text: ""},
+    note15: {title: "", text: ""},
+    note16: {title: "", text: ""},
+    note17: {title: "", text: ""},
+    note18: {title: "", text: ""},
+    note19: {title: "", text: ""},
+    note20: {title: "", text: ""}
   })
 
   const [comments, setComments] = useState({
@@ -74,9 +143,20 @@ export default function Home() {
       setSetNumber(number);
     };
 
+    const fetchExam = async () => {
+      const baseUrl = process.env.NODE_ENV === 'production' ? 'https://your-deployment-url.com' : 'http://localhost:3000';
+      try {
+        const response = await Promise.all([
+          fetch(`${baseUrl}/set${setNumber}/exam.txt`).then(res => res.text())
+        ])
+        setExam(response[0])
+      } catch (error) {
+        console.error('Error fetching indication text files:', error);
+      }
+    }
+
     const fetchIndicationText = async () => {
       const baseUrl = process.env.NODE_ENV === 'production' ? 'https://your-deployment-url.com' : 'http://localhost:3000';
-
       try {
         const responses = await Promise.all([
           fetch(`${baseUrl}/set${setNumber}/indication1.txt`).then(res => res.text()),
@@ -96,7 +176,6 @@ export default function Home() {
     };
     const fetchNoteText = async () => {
       const baseUrl = process.env.NODE_ENV === 'production' ? 'https://your-deployment-url.com' : 'http://localhost:3000';
-    
       try {
         const responses = await Promise.all([
           fetch(`${baseUrl}/set${setNumber}/note1.txt`).then(res => res.text()),
@@ -109,6 +188,16 @@ export default function Home() {
           fetch(`${baseUrl}/set${setNumber}/note8.txt`).then(res => res.text()),
           fetch(`${baseUrl}/set${setNumber}/note9.txt`).then(res => res.text()),
           fetch(`${baseUrl}/set${setNumber}/note10.txt`).then(res => res.text()),
+          fetch(`${baseUrl}/set${setNumber}/note11.txt`).then(res => res.text()),
+          fetch(`${baseUrl}/set${setNumber}/note12.txt`).then(res => res.text()),
+          fetch(`${baseUrl}/set${setNumber}/note13.txt`).then(res => res.text()),
+          fetch(`${baseUrl}/set${setNumber}/note14.txt`).then(res => res.text()),
+          fetch(`${baseUrl}/set${setNumber}/note15.txt`).then(res => res.text()),
+          fetch(`${baseUrl}/set${setNumber}/note16.txt`).then(res => res.text()),
+          fetch(`${baseUrl}/set${setNumber}/note17.txt`).then(res => res.text()),
+          fetch(`${baseUrl}/set${setNumber}/note18.txt`).then(res => res.text()),
+          fetch(`${baseUrl}/set${setNumber}/note19.txt`).then(res => res.text()),
+          fetch(`${baseUrl}/set${setNumber}/note20.txt`).then(res => res.text()),
         ]);
     
         const parsedNotes = responses.map(text => {
@@ -127,16 +216,27 @@ export default function Home() {
           note8: parsedNotes[7],
           note9: parsedNotes[8],
           note10: parsedNotes[9],
+          note11: parsedNotes[10],
+          note12: parsedNotes[11],
+          note13: parsedNotes[12],
+          note14: parsedNotes[13],
+          note15: parsedNotes[14],
+          note16: parsedNotes[15],
+          note17: parsedNotes[16],
+          note18: parsedNotes[17],
+          note19: parsedNotes[18],
+          note20: parsedNotes[19],
         });
       } catch (error) {
         console.error('Error fetching note text files:', error);
       }
     };
 
-    fetchSetNumber();
-    fetchIndicationText();
+    fetchSetNumber()
+    fetchExam()
+    fetchIndicationText()
     fetchNoteText()
-  }, [setNumber]);
+  }, [setNumber])
 
   const handleSignout = async () => {
     await signout();
@@ -156,6 +256,7 @@ export default function Home() {
       comments.indication1,
       comments.indication2,
       comments.indication3,
+      selectedIndication,
       setNumber
     );
 
@@ -193,7 +294,7 @@ export default function Home() {
       <div className="w-full max-w-8xl bg-white shadow-lg rounded-lg p-8 flex flex-col">
 
       <div className="flex justify-between items-center mb-10">
-      <h2 className="bg-blue-600 px-4 py-2 rounded-lg text-white">Case {setNumber} out of 100</h2>
+      <h2 className="bg-blue-600 px-4 py-2 rounded-lg text-white">Case {setNumber} out of 20</h2>
       <button
           onClick={handleSignout}
           className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
@@ -226,6 +327,10 @@ export default function Home() {
         <div className="w-1/4 pl-4">
           <h2 className="text-xl font-semibold mb-4">Evaluation</h2>
           <div className="bg-gray-100 p-4 rounded-lg space-y-6">
+            <div>
+              <h3 className="text-lg font-medium">Exam</h3>
+              <h4 className="text-md font-normal">{exam}</h4>
+            </div>
             {/* Indication #1 */}
             <div>
               <h3 className="text-lg font-medium">Indication #1</h3>
@@ -310,6 +415,10 @@ export default function Home() {
               />
             </div>
 
+            <div>
+              <h3 className="text-lg font-medium">Overall Preference</h3>
+              <IndicationSelector/>
+            </div>
 
 
             {/* Centered and Black Submit Button */}

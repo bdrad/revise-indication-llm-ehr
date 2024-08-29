@@ -1,0 +1,3 @@
+PERIOP PARN - Note associated with ED Event | 2023-02-12 00:00:00
+Time patient enters OR/procedure room.  Immediate Pre-Op care complete.  Immediate pre-induction/sedation evaluation:  - appropriate vital signs measured.  - airway status reassessed.  - response to *****-***** ***** assessed.  
+

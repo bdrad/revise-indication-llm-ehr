@@ -1,0 +1,67 @@
+NON-OR ANES MB - Procedures (Physician) | 2021-04-13 10:41:00
+***** *****, MD     *****/*****/***** 10:42 AM
+
+Airway
+
+Date/Time: *****/*****/***** 10:38 AM
+
+Urgency: elective
+
+
+
+Difficult airway: no
+
+
+
+Final Airway Details
+
+Final airway type: supraglottic airway
+
+
+
+
+
+Successful airway: LMA - *****
+
+Size 2
+
+
+
+Number of attempts at approach: 1
+
+Number of other approaches attempted: 0
+
+
+
+General Information and *****
+
+Patient location during procedure: OR
+
+Performed: anesthesia attending 
+
+Anesthesiologist: ***** *****, MD
+
+
+
+Indications and Patient Condition
+
+Indications for airway management: anesthesia
+
+Spontaneous ventilation: present
+
+Sedation level: anesthesia
+
+*****: yes
+
+Patient position: neck neutral
+
+***** not maintained throughout
+
+***** difficulty assessment: 1 - vent by mask
+
+
+
+
+
+For full procedure information, see associated anesthesia event/encounter.
+

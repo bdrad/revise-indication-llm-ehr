@@ -36,7 +36,8 @@ export async function submitData(
   conciseness3: Number,
   comment1: String,
   comment2: String,
-  comment3: String,
+  comment3: String,  
+  selectedIndication: String,
   setNumber: number  
 ) {
   const supabase = await createClient()
@@ -46,6 +47,8 @@ export async function submitData(
   .select("user_id, set_id")
   .eq("user_id", user?.id)
   let user_id = data?.[0].user_id
+
+  console.log(selectedIndication)
 
   let { error: insertError } = await supabase
       .from('evaluations')
@@ -64,6 +67,7 @@ export async function submitData(
         indication_1_comment: comment1,
         indication_2_comment: comment2,
         indication_3_comment: comment3,
+        indication_preference: selectedIndication
       });
 
     if (insertError) {
