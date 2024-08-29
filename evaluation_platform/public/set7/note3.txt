@@ -1,3 +1,0 @@
-Clinical Note | 2022-03-14 08:06:00
-Patient ***** *****   --------------------------------      Questionnaire: *****-19 Prescreen      Question: Have you been diagnosed with *****-19 in the last 10 days.  If you are immunocompromised including receiving treatment for cancer, bone marrow transplant, or solid organ transplant have you been diagnosed with *****-19 in the last 20 days?   Answer:   No      Question: In the last 10 days, have you had close contact (such as household or school contact) with a person with a positive *****-19 test?   Answer:   No      Question: In the last 10 days, have you (adult patient) or has your child (pediatric patient) experienced any of the following NEW or WORSENING symptoms:   Answer:   NONE  
-

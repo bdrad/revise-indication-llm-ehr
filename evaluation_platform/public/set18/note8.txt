@@ -1,3 +1,0 @@
-NON-OR ANES MB - Note associated with ED Event | 2021-04-13 00:00:00
-Anesthesia Care Started  Shared Data Extract Created   If emergency, pre-anesthesia evaluation described in *****  Machine and equipment checked; setup complete  Patient identified, procedure verified  APeX chart and other records reviewed  Allergy, medication, and anesthesia history reviewed  Patient evaluated immediately prior to anesthesia care  Preoperative assessment completed  Airway and anesthesia risks evaluated  Risks, benefits, and alternative discussed  Informed consent for anesthesia obtained  
-
