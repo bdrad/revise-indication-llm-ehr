@@ -101,16 +101,16 @@ export default function Home() {
     note8: {title: "", text: ""},
     note9: {title: "", text: ""},
     note10: {title: "", text: ""},
-    note11: {title: "", text: ""},
-    note12: {title: "", text: ""},
-    note13: {title: "", text: ""},
-    note14: {title: "", text: ""},
-    note15: {title: "", text: ""},
-    note16: {title: "", text: ""},
-    note17: {title: "", text: ""},
-    note18: {title: "", text: ""},
-    note19: {title: "", text: ""},
-    note20: {title: "", text: ""}
+    // note11: {title: "", text: ""},
+    // note12: {title: "", text: ""},
+    // note13: {title: "", text: ""},
+    // note14: {title: "", text: ""},
+    // note15: {title: "", text: ""},
+    // note16: {title: "", text: ""},
+    // note17: {title: "", text: ""},
+    // note18: {title: "", text: ""},
+    // note19: {title: "", text: ""},
+    // note20: {title: "", text: ""}
   })
 
   const [comments, setComments] = useState({
@@ -188,16 +188,16 @@ export default function Home() {
           fetch(`${baseUrl}/set${setNumber}/note8.txt`).then(res => res.text()),
           fetch(`${baseUrl}/set${setNumber}/note9.txt`).then(res => res.text()),
           fetch(`${baseUrl}/set${setNumber}/note10.txt`).then(res => res.text()),
-          fetch(`${baseUrl}/set${setNumber}/note11.txt`).then(res => res.text()),
-          fetch(`${baseUrl}/set${setNumber}/note12.txt`).then(res => res.text()),
-          fetch(`${baseUrl}/set${setNumber}/note13.txt`).then(res => res.text()),
-          fetch(`${baseUrl}/set${setNumber}/note14.txt`).then(res => res.text()),
-          fetch(`${baseUrl}/set${setNumber}/note15.txt`).then(res => res.text()),
-          fetch(`${baseUrl}/set${setNumber}/note16.txt`).then(res => res.text()),
-          fetch(`${baseUrl}/set${setNumber}/note17.txt`).then(res => res.text()),
-          fetch(`${baseUrl}/set${setNumber}/note18.txt`).then(res => res.text()),
-          fetch(`${baseUrl}/set${setNumber}/note19.txt`).then(res => res.text()),
-          fetch(`${baseUrl}/set${setNumber}/note20.txt`).then(res => res.text()),
+          // fetch(`${baseUrl}/set${setNumber}/note11.txt`).then(res => res.text()),
+          // fetch(`${baseUrl}/set${setNumber}/note12.txt`).then(res => res.text()),
+          // fetch(`${baseUrl}/set${setNumber}/note13.txt`).then(res => res.text()),
+          // fetch(`${baseUrl}/set${setNumber}/note14.txt`).then(res => res.text()),
+          // fetch(`${baseUrl}/set${setNumber}/note15.txt`).then(res => res.text()),
+          // fetch(`${baseUrl}/set${setNumber}/note16.txt`).then(res => res.text()),
+          // fetch(`${baseUrl}/set${setNumber}/note17.txt`).then(res => res.text()),
+          // fetch(`${baseUrl}/set${setNumber}/note18.txt`).then(res => res.text()),
+          // fetch(`${baseUrl}/set${setNumber}/note19.txt`).then(res => res.text()),
+          // fetch(`${baseUrl}/set${setNumber}/note20.txt`).then(res => res.text()),
         ]);
     
         const parsedNotes = responses.map(text => {
@@ -216,16 +216,16 @@ export default function Home() {
           note8: parsedNotes[7],
           note9: parsedNotes[8],
           note10: parsedNotes[9],
-          note11: parsedNotes[10],
-          note12: parsedNotes[11],
-          note13: parsedNotes[12],
-          note14: parsedNotes[13],
-          note15: parsedNotes[14],
-          note16: parsedNotes[15],
-          note17: parsedNotes[16],
-          note18: parsedNotes[17],
-          note19: parsedNotes[18],
-          note20: parsedNotes[19],
+          // note11: parsedNotes[10],
+          // note12: parsedNotes[11],
+          // note13: parsedNotes[12],
+          // note14: parsedNotes[13],
+          // note15: parsedNotes[14],
+          // note16: parsedNotes[15],
+          // note17: parsedNotes[16],
+          // note18: parsedNotes[17],
+          // note19: parsedNotes[18],
+          // note20: parsedNotes[19],
         });
       } catch (error) {
         console.error('Error fetching note text files:', error);
@@ -259,31 +259,6 @@ export default function Home() {
       selectedIndication,
       setNumber
     );
-
-    // setIndications({
-    //   indication1: {
-    //     comprehensiveness: 5,
-    //     factuality: 5,
-    //     conciseness: 5,
-    //   },
-    //   indication2: {
-    //     comprehensiveness: 5,
-    //     factuality: 5,
-    //     conciseness: 5,
-    //   },
-    //   indication3: {
-    //     comprehensiveness: 5,
-    //     factuality: 5,
-    //     conciseness: 5,
-    //   },
-    // });
-
-    // setComments({
-    //   indication1: '',
-    //   indication2: '',
-    //   indication3: '',
-    // });
-
     setSetNumber((prev) => prev + 1)
     window.scrollTo({ top: 0})
   };
@@ -304,7 +279,7 @@ export default function Home() {
       </div>
 
       <div className="flex flex-row">
-        <div className="w-3/4 pr-4">
+        <div className="w-1/2 pr-4">
           <h2 className="text-xl font-semibold mb-4">Notes</h2>
           <div className="space-y-4">
           {Object.keys(notes).map((noteKey) => {
@@ -324,95 +299,104 @@ export default function Home() {
 
         </div>
         </div>
-        <div className="w-1/4 pl-4">
+        <div className="w-1/2 pl-4">
           <h2 className="text-xl font-semibold mb-4">Evaluation</h2>
           <div className="bg-gray-100 p-4 rounded-lg space-y-6">
             <div>
               <h3 className="text-lg font-medium">Exam</h3>
               <h4 className="text-md font-normal">{exam}</h4>
             </div>
+            <div className="flex flex-row justify-around">
             {/* Indication #1 */}
-            <div>
-              <h3 className="text-lg font-medium">Indication #1</h3>
-              <h4 className="text-md font-normal">{indications.indication1.text}</h4>
+              <div className="flex-1 mx-2">
+                <h3 className="text-lg font-medium">Indication #1</h3>
+                <div className="h-32 overflow-y-auto">
+                  <h4 className="text-md font-normal">{indications.indication1.text}</h4>
+                </div>
+                <br/>
+                <Slider
+                  label="Comprehensiveness (i.e. Does it omit any radiologically relevant and/or important detail?)"
+                  value={indications.indication1.comprehensiveness}
+                  onChange={(value) => handleSliderChange('indication1', 'comprehensiveness', value)}
+                />
+                <Slider
+                  label="Factuality (i.e. Does it make up or hallucinate any false information that was not in the medical record?)"
+                  value={indications.indication1.factuality}
+                  onChange={(value) => handleSliderChange('indication1', 'factuality', value)}
+                />
+                <Slider
+                  label="Conciseness (i.e. Could the information be said in shorter /simpler phrases or sentences or do they ramble on with excessive words?)"
+                  value={indications.indication1.conciseness}
+                  onChange={(value) => handleSliderChange('indication1', 'conciseness', value)}
+                />
+                <h2>Comment (Optional)</h2>
+                <textarea
+                  className="mt-2 w-full p-2 border border-gray-300 rounded-lg"
+                  value={comments.indication1}
+                  onChange={(e) => handleCommentChange('indication1', e.target.value)}
+                />
+              </div>
+
+              {/* Indication #2 */}
+              <div className="flex-1 mx-2">
+              <h3 className="text-lg font-medium">Indication #2</h3>
+              <div className="h-32 overflow-y-auto">
+                <h4 className="text-md font-normal">{indications.indication2.text}</h4>
+              </div>
               <br/>
-              <Slider
-                label="Comprehensiveness (i.e. Does it omit any radiologically relevant and/or important detail?)"
-                value={indications.indication1.comprehensiveness}
-                onChange={(value) => handleSliderChange('indication1', 'comprehensiveness', value)}
-              />
-              <Slider
-                label="Factuality (i.e. Does it make up or hallucinate any false information that was not in the medical record?)"
-                value={indications.indication1.factuality}
-                onChange={(value) => handleSliderChange('indication1', 'factuality', value)}
-              />
-              <Slider
-                label="Conciseness (i.e. Could the information be said in shorter /simpler phrases or sentences or do they ramble on with excessive words?)"
-                value={indications.indication1.conciseness}
-                onChange={(value) => handleSliderChange('indication1', 'conciseness', value)}
-              />
-              <h2>Comment (Optional)</h2>
-              <textarea
-                className="mt-2 w-full p-2 border border-gray-300 rounded-lg"
-                value={comments.indication1}
-                onChange={(e) => handleCommentChange('indication1', e.target.value)}
-              />
-            </div>
+                <Slider
+                  label="Comprehensiveness (i.e. Does it omit any radiologically relevant and/or important detail?)"
+                  value={indications.indication2.comprehensiveness}
+                  onChange={(value) => handleSliderChange('indication2', 'comprehensiveness', value)}
+                />
+                <Slider
+                  label="Factuality (i.e. Does it make up or hallucinate any false information that was not in the medical record?)"
+                  value={indications.indication2.factuality}
+                  onChange={(value) => handleSliderChange('indication2', 'factuality', value)}
+                />
+                <Slider
+                  label="Conciseness (i.e. Could the information be said in shorter /simpler phrases or sentences or do they ramble on with excessive words?)"
+                  value={indications.indication2.conciseness}
+                  onChange={(value) => handleSliderChange('indication2', 'conciseness', value)}
+                />
+                <h2>Comment (Optional)</h2>
+                <textarea
+                  className="mt-2 w-full p-2 border border-gray-300 rounded-lg"
+                  value={comments.indication2}
+                  onChange={(e) => handleCommentChange('indication2', e.target.value)}
+                />
+              </div>
 
-            {/* Indication #2 */}
-            <div>
-            <h3 className="text-lg font-medium">Indication #2</h3>
-            <h4 className="text-md font-normal">{indications.indication2.text}</h4>
-            <br/>
-              <Slider
-                label="Comprehensiveness (i.e. Does it omit any radiologically relevant and/or important detail?)"
-                value={indications.indication2.comprehensiveness}
-                onChange={(value) => handleSliderChange('indication2', 'comprehensiveness', value)}
-              />
-              <Slider
-                label="Factuality (i.e. Does it make up or hallucinate any false information that was not in the medical record?)"
-                value={indications.indication2.factuality}
-                onChange={(value) => handleSliderChange('indication2', 'factuality', value)}
-              />
-              <Slider
-                label="Conciseness (i.e. Could the information be said in shorter /simpler phrases or sentences or do they ramble on with excessive words?)"
-                value={indications.indication2.conciseness}
-                onChange={(value) => handleSliderChange('indication2', 'conciseness', value)}
-              />
-              <h2>Comment (Optional)</h2>
-              <textarea
-                className="mt-2 w-full p-2 border border-gray-300 rounded-lg"
-                value={comments.indication2}
-                onChange={(e) => handleCommentChange('indication2', e.target.value)}
-              />
-            </div>
+              {/* Indication #3 */}
+              <div className="flex-1 mx-2">
+              <h3 className="text-lg font-medium">Indication #3</h3>
+              <div className="h-32 overflow-y-auto">
+                <h4 className="text-md font-normal">{indications.indication3.text}</h4>
+              </div>
+              <br/>
+                <Slider
+                  label="Comprehensiveness (i.e. Does it omit any radiologically relevant and/or important detail?)"
+                  value={indications.indication3.comprehensiveness}
+                  onChange={(value) => handleSliderChange('indication3', 'comprehensiveness', value)}
+                />
+                <Slider
+                  label="Factuality (i.e. Does it make up or hallucinate any false information that was not in the medical record?)"
+                  value={indications.indication3.factuality}
+                  onChange={(value) => handleSliderChange('indication3', 'factuality', value)}
+                />
+                <Slider
+                  label="Conciseness (i.e. Could the information be said in shorter /simpler phrases or sentences or do they ramble on with excessive words?)"
+                  value={indications.indication3.conciseness}
+                  onChange={(value) => handleSliderChange('indication3', 'conciseness', value)}
+                />
+                <h2>Comment (Optional)</h2>
+                <textarea
+                  className="mt-2 w-full p-2 border border-gray-300 rounded-lg"
+                  value={comments.indication3}
+                  onChange={(e) => handleCommentChange('indication3', e.target.value)}
+                />
+              </div>
 
-            {/* Indication #3 */}
-            <div>
-            <h3 className="text-lg font-medium">Indication #3</h3>
-            <h4 className="text-md font-normal">{indications.indication3.text}</h4>
-            <br/>
-              <Slider
-                label="Comprehensiveness (i.e. Does it omit any radiologically relevant and/or important detail?)"
-                value={indications.indication3.comprehensiveness}
-                onChange={(value) => handleSliderChange('indication3', 'comprehensiveness', value)}
-              />
-              <Slider
-                label="Factuality (i.e. Does it make up or hallucinate any false information that was not in the medical record?)"
-                value={indications.indication3.factuality}
-                onChange={(value) => handleSliderChange('indication3', 'factuality', value)}
-              />
-              <Slider
-                label="Conciseness (i.e. Could the information be said in shorter /simpler phrases or sentences or do they ramble on with excessive words?)"
-                value={indications.indication3.conciseness}
-                onChange={(value) => handleSliderChange('indication3', 'conciseness', value)}
-              />
-              <h2>Comment (Optional)</h2>
-              <textarea
-                className="mt-2 w-full p-2 border border-gray-300 rounded-lg"
-                value={comments.indication3}
-                onChange={(e) => handleCommentChange('indication3', e.target.value)}
-              />
             </div>
 
             <div>
