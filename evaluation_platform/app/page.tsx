@@ -269,7 +269,7 @@ export default function Home() {
       <div className="w-full max-w-8xl bg-white shadow-lg rounded-lg p-8 flex flex-col">
 
       <div className="flex justify-between items-center mb-10">
-      <h2 className="bg-blue-600 px-4 py-2 rounded-lg text-white">Case {setNumber} out of 20</h2>
+      <h2 className="bg-blue-600 px-4 py-2 rounded-lg text-white">Case {setNumber} out of 100</h2>
       <button
           onClick={handleSignout}
           className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
@@ -289,7 +289,7 @@ export default function Home() {
           <summary className="cursor-pointer text-lg font-medium">
             {notes[key].title}
           </summary>
-          <p className="mt-2 text-sm text-gray-600 h-40 overflow-y-auto">
+          <p className="mt-2 text-sm text-gray-600 overflow-y-auto" style={{ height: '600px' }}>
             {notes[key].text}
           </p>
         </details>
