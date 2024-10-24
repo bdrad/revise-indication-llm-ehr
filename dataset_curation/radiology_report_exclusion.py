@@ -3,7 +3,7 @@ import pandas as pd
 import tqdm
 import regex as re
 
-start_shard = 2
+start_shard = 6
 print(f"Shard {start_shard}")
 print('-'*20)
 filtered_data_note_type = pd.read_parquet(f"filtered_data_note_type_shard{start_shard}.parquet")
@@ -39,7 +39,7 @@ for i in tqdm.tqdm(range(len(patient_mrns))):
             (radiology_reports["exam_type"] != "") &
             (~radiology_reports["exam_type"].str.contains("\*")) &
             (~radiology_reports["radiologist_indication"].isna())
-        ].drop_duplicates(subset=["deid_service_date"]).sort_values(by=["deid_service_date"], ascending=False)
+        ].drop_duplicates(subset=["exam_type", "original_indication", "radiologist_indication"]).sort_values(by=["deid_service_date"], ascending=False)
     for j in range(len(radiology_reports)):
         radiology_report = radiology_reports.iloc[j]
         filtered_patient_notes = patient_notes[

@@ -1,1 +1,2 @@
 dataset_curation/*.parquet
+dataset_curation/archive_data/*.parquet
