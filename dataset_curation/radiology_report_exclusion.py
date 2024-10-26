@@ -46,6 +46,8 @@ for i in tqdm.tqdm(range(len(patient_mrns))):
             (patient_notes["deid_service_date"] < radiology_report["deid_service_date"]) & 
             (patient_notes["note_type"] != "Imaging")
         ].sort_values(by=["deid_service_date"], ascending=False).reset_index(drop=True)
+        if len(filtered_patient_notes) < 5:
+            continue
         filtered_data_radiology_report.append(radiology_report.to_frame().T)
         filtered_data_radiology_report.append(filtered_patient_notes)
 filtered_data_radiology_report = pd.concat(filtered_data_radiology_report).drop_duplicates(subset=["deid_note_key"])
