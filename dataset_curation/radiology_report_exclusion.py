@@ -38,7 +38,10 @@ for i in tqdm.tqdm(range(len(patient_mrns))):
         radiology_reports = radiology_reports[
             (radiology_reports["exam_type"] != "") &
             (~radiology_reports["exam_type"].str.contains("\*")) &
-            (~radiology_reports["radiologist_indication"].isna())
+            (~radiology_reports["radiologist_indication"].isna()) & 
+            (radiology_reports["radiologist_indication"] != "") & 
+            (~radiology_reports["original_indication"].isna()) & 
+            (radiology_reports["original_indication"] != "")
         ].drop_duplicates(subset=["exam_type", "original_indication", "radiologist_indication"]).sort_values(by=["deid_service_date"], ascending=False)
     for j in range(len(radiology_reports)):
         radiology_report = radiology_reports.iloc[j]

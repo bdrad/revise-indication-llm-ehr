@@ -6,12 +6,12 @@ import regex as re
 RANDOM_STATE = 123
 
 # Clinical Indication Dataset
+print("Clinical Indication Dataset")
+print("="*20)
 clinical_indication_dataset = []
 for i in tqdm.tqdm(range(1, 7)):
     clinical_indication_dataset.append(pd.read_parquet(f"clinical_indication_dataset_shard{i}.parquet"))
 clinical_indication_dataset = pd.concat(clinical_indication_dataset)
-print("Clinical Indication Dataset")
-print("="*20)
 n_radiology_clinical_indication_dataset = len(clinical_indication_dataset[~clinical_indication_dataset["exam_type"].isna()])
 print("n_notes", len(clinical_indication_dataset))
 print("n_patients", clinical_indication_dataset["patientdurablekey"].nunique())
@@ -76,9 +76,10 @@ print("="*20)
 print("n_notes", len(llm_balanced_test_dataset))
 print("n_patients", llm_balanced_test_dataset["patientdurablekey"].nunique())
 print("n_radiology reports", len(llm_balanced_test_dataset[~llm_balanced_test_dataset["exam_type"].isna()]))
-
+llm_balanced_test_dataset.to_parquet("llm_balanced_test_dataset.parquet")
 NUM_NOTES = 10
 llm_balanced_test_dataset_processed = pd.DataFrame(columns=[
+    "patientdurablekey",
     "exam_type",
     "imaging_modality",
     "body_group",
@@ -89,7 +90,8 @@ llm_balanced_test_dataset_processed = pd.DataFrame(columns=[
     "note_types",
     "auth_prov_types",
     "deid_service_dates",
-    "note_texts"
+    "note_texts",
+    "note_texts_full"
 ])
 for i in tqdm.tqdm(range(len(llm_dataset_sampled_reports))):
     radiology_report = llm_dataset_sampled_reports.iloc[i]
@@ -104,7 +106,9 @@ for i in tqdm.tqdm(range(len(llm_dataset_sampled_reports))):
     auth_prov_types = filtered_patient_notes[:NUM_NOTES][["auth_prov_type"]].squeeze().tolist()
     deid_service_dates = filtered_patient_notes[:NUM_NOTES][["deid_service_date"]].squeeze().tolist()
     note_texts = filtered_patient_notes[:NUM_NOTES][["note_text"]].squeeze().tolist()
+    note_texts_full = filtered_patient_notes[["note_text"]].squeeze().tolist()
     row = {
+        "patientdurablekey": radiology_report["patientdurablekey"],
         "exam_type": radiology_report["exam_type"],
         "imaging_modality": radiology_report["imaging_modality"],
         "body_group": radiology_report["body_group"],
@@ -115,7 +119,8 @@ for i in tqdm.tqdm(range(len(llm_dataset_sampled_reports))):
         "note_types": note_types,
         "auth_prov_types": auth_prov_types,
         "deid_service_dates": deid_service_dates,
-        "note_texts": note_texts
+        "note_texts": note_texts,
+        "note_texts_full": note_texts_full
     }
     llm_balanced_test_dataset_processed.loc[
         len(llm_balanced_test_dataset_processed)
