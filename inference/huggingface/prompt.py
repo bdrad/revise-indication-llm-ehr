@@ -4,11 +4,11 @@ def generate_prompt(exam_type, original_indication, clinical_notes):
 that supplies the relevant clinical history which includes patient's sex, age, and relevant symptoms which may optionally include
 biopsies, surgeries, resections, treatments related to the radiological exam of {exam_type}. 
 If the ORIGINAL INDICATION is for evaluation of oncological or other chronic conditions, make sure to include
-surgeries, biopsies, procedures, and treatments with dates as applicable, up to 30 words. Otherwise, generate only up to 
-15 words or less. Indication should be only one sentence. 
+surgeries, biopsies, and treatments with dates as applicable, only 20 words or less. Otherwise, generate only up to 
+10 words or less. Indication should be only one sentence. 
 Do not add any explanation to the indication. 
-If any information contains asterisks or *****, remove phrase. 
-Never put any asterisks (*) in the REVISED INDICATION. 
+If any information contains asterisks such as *****, REMMOVE PHRASE. 
+NEVER put any asterisks (*) in the REVISED INDICATION. 
 
 (SAMPLE) CLINICAL NOTE:
 FOLLOW-UP GASTROINTESTINAL MEDICAL ONCOLOGY VISIT 

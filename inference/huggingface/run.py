@@ -6,10 +6,13 @@ from huggingface_hub import login
 from dotenv import load_dotenv
 from transformers import pipeline
 import tqdm
+import torch
 
 BASEPATH = "/mnt/sohn2022/Adrian/llm-revise-indication-notes/inference/results"
-# MODEL = "mistralai/Mistral-7B-Instruct-v0.3"
-MODEL = "meta-llama/Meta-Llama-3.1-8B-Instruct"
+MODEL = "mistralai/Mistral-7B-Instruct-v0.3"
+# MODEL = "meta-llama/Meta-Llama-3.1-8B-Instruct"
+print(MODEL)
+print("="*20)
 MODEL_NAME = MODEL.replace("/", "_")
 
 load_dotenv("/mnt/sohn2022/Adrian/Utils/Credentials/.env")
@@ -27,7 +30,6 @@ llm_balanced_test_dataset_results = pd.DataFrame(columns=[
     "radiologist_indication",
 	"llm_indication"
 ])
-
 llm_balanced_test_dataset_processed = pl.read_parquet("../dataset_curation/llm_balanced_test_dataset_processed.parquet").to_pandas()
 llm_balanced_test_dataset_processed["prompt"] = llm_balanced_test_dataset_processed.apply(
     lambda row: generate_prompt(
@@ -36,18 +38,29 @@ llm_balanced_test_dataset_processed["prompt"] = llm_balanced_test_dataset_proces
         row["note_texts"]
     ), 
 axis=1)
-chatbot = pipeline("text-generation", model=MODEL, device="cuda:0")
-for i in tqdm.tqdm(range(10)):
+chatbot = pipeline(
+	"text-generation",
+	model=MODEL, 
+	device="cuda:0",
+	torch_dtype=torch.float16
+)
+
+start_idx = 0
+end_idx = len(llm_balanced_test_dataset_processed)
+end_idx = 100
+
+for i in tqdm.tqdm(range(start_idx, end_idx)):
 	test_row = llm_balanced_test_dataset_processed.iloc[i]
 	prompt = test_row["prompt"]
 	messages = [
+		{"role": "system", "content": "If any information contains asterisks such as *****, do not include phrase in summary. Never put any asterisks (*****) in your response."},
 		{"role": "user", "content": prompt},
 	]
 	llm_indication = chatbot(
 		messages, 
-		max_new_tokens=200
-	)[0]["generated_text"][1]["content"]
-	print("Generated Output:", llm_indication)
+		max_new_tokens=200,
+		pad_token_id=chatbot.tokenizer.eos_token_id
+	)[0]["generated_text"][2]["content"]
 	results_row = {
 		"patientdurablekey": test_row["patientdurablekey"],
 		"exam_type": test_row["exam_type"],

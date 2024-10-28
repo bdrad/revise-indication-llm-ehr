@@ -1,4 +1,4 @@
-from prompt import generate_prompt
+from inference.huggingface.prompt import generate_prompt
 import polars as pl
 import pandas as pd
 from vllm import LLM
@@ -38,7 +38,7 @@ axis=1)
 sampling_params = SamplingParams(max_tokens=100)
 llm = LLM(model=MODEL, tokenizer_mode="mistral", config_format="mistral", load_format="mistral")
 messages = []
-for i in range(100):
+for i in range(len(llm_balanced_test_dataset_processed)):
 	test_row = llm_balanced_test_dataset_processed.iloc[i]
 	prompt = test_row["prompt"]
 	messages.append([
