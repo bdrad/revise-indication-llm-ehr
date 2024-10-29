@@ -1,4 +1,6 @@
 from prompt import generate_prompt
+from utils import chat
+
 import polars as pl
 import pandas as pd
 import os
@@ -10,9 +12,7 @@ import torch
 
 DATASET = "llm_balanced_test_dataset"
 BASEPATH = "/mnt/sohn2022/Adrian/llm-revise-indication-notes/inference/results"
-# MODEL = "mistralai/Mistral-7B-Instruct-v0.3"
-# MODEL = "meta-llama/Meta-Llama-3.1-8B-Instruct"
-MODEL = "BioMistral/BioMistral-7B"
+MODEL = MODEL_NAME = "gpt4o"
 
 print(MODEL)
 print("="*20)
@@ -41,16 +41,10 @@ dataset_processed["prompt"] = dataset_processed.apply(
         row["note_texts"]
     ), 
 axis=1).str.replace(r"\*\*\*\*\*", "", regex=True)
-chatbot = pipeline(
-	"text-generation",
-	model=MODEL, 
-	device="cuda:0",
-	torch_dtype=torch.float16
-)
 
 start_idx = 0
-end_idx = len(dataset_processed)
-# end_idx = 100
+# end_idx = len(dataset_processed)
+end_idx = 1000
 
 for i in tqdm.tqdm(range(start_idx, end_idx)):
 	test_row = dataset_processed.iloc[i]
@@ -58,11 +52,7 @@ for i in tqdm.tqdm(range(start_idx, end_idx)):
 	messages = [
 		{"role": "user", "content": prompt},
 	]
-	llm_indication = chatbot(
-		messages, 
-		max_new_tokens=200,
-		pad_token_id=chatbot.tokenizer.eos_token_id
-	)[0]["generated_text"][1]["content"]
+	llm_indication = chat(prompt, MODEL)
 	results_row = {
 		"patientdurablekey": test_row["patientdurablekey"],
 		"exam_type": test_row["exam_type"],
