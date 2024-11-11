@@ -42,9 +42,9 @@ dataset_processed["prompt"] = dataset_processed.apply(
     ), 
 axis=1).str.replace(r"\*\*\*\*\*", "", regex=True)
 
-start_idx = 0
+start_idx = 9000
 # end_idx = len(dataset_processed)
-end_idx = 1000
+end_idx = 10000
 
 for i in tqdm.tqdm(range(start_idx, end_idx)):
 	test_row = dataset_processed.iloc[i]

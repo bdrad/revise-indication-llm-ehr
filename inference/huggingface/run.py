@@ -12,7 +12,12 @@ DATASET = "llm_balanced_test_dataset"
 BASEPATH = "/mnt/sohn2022/Adrian/llm-revise-indication-notes/inference/results"
 # MODEL = "mistralai/Mistral-7B-Instruct-v0.3"
 # MODEL = "meta-llama/Meta-Llama-3.1-8B-Instruct"
-MODEL = "BioMistral/BioMistral-7B"
+# MODEL = "BioMistral/BioMistral-7B"
+# MODEL = "OpenMeditron/Meditron3-8B"
+# MODEL = "google/gemma-2-9b-it"
+# MODEL = "Qwen/Qwen2.5-7B-Instruct"
+MODEL = "Qwen/Qwen2.5-7B-Instruct"
+
 
 print(MODEL)
 print("="*20)
@@ -44,7 +49,7 @@ axis=1).str.replace(r"\*\*\*\*\*", "", regex=True)
 chatbot = pipeline(
 	"text-generation",
 	model=MODEL, 
-	device="cuda:0",
+	device="cuda:1",
 	torch_dtype=torch.float16
 )
 
