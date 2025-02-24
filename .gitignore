@@ -1,3 +1,9 @@
+.DS_Store
+evaluation_platform/.vscode
+evaluation_platform/Dockerfile
+evaluation_platform/llm-indication-platform.tar
+evaluation_platform/requirements.txt
+
 dataset_curation/*.parquet
 dataset_curation/*.csv
 dataset_curation/archive_data/*.parquet

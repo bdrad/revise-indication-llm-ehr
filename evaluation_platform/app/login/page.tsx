@@ -4,8 +4,8 @@ export default function LoginPage() {
     return (
       <div className="flex justify-center items-center min-h-screen bg-gray-100">
         <form className="bg-white p-8 rounded-lg shadow-md w-full max-w-md">
-          <h2 className="text-2xl font-semibold text-center mb-2">Clinical Notes Indication Generation</h2>
-          <h4 className="text-lg font-medium text-center mb-8">Reader Performance Study</h4>
+          <h2 className="text-2xl font-semibold text-center mb-2">LLM Imaging Indication Generation</h2>
+          <h4 className="text-lg font-medium text-center mb-8">Clinical Reader Performance Study</h4>
           <div className="mb-4">
             <label htmlFor="email" className="block text-sm font-medium text-gray-700">
               Email

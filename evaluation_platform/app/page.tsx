@@ -65,6 +65,21 @@ export default function Home() {
               Indication 3
             </label>
           </div>
+
+          <div className="flex items-center mb-2">
+            <input
+              type="radio"
+              id="indication4"
+              name="indication"
+              value="Indication 4"
+              checked={selectedIndication === 'Indication 4'}
+              onChange={handleSelection}
+              className="mr-2"
+            />
+            <label htmlFor="indication4" className="text-md">
+              Indication 4
+            </label>
+          </div>
       </div>
     );
   };
@@ -88,6 +103,12 @@ export default function Home() {
       conciseness: 5,
       text: ""
     },
+    indication4: {
+      comprehensiveness: 5,
+      factuality: 5,
+      conciseness: 5,
+      text: ""
+    },
   });
 
   const [notes, setNotes] = useState({
@@ -100,23 +121,14 @@ export default function Home() {
     note7: {title: "", text: ""},
     note8: {title: "", text: ""},
     note9: {title: "", text: ""},
-    note10: {title: "", text: ""},
-    // note11: {title: "", text: ""},
-    // note12: {title: "", text: ""},
-    // note13: {title: "", text: ""},
-    // note14: {title: "", text: ""},
-    // note15: {title: "", text: ""},
-    // note16: {title: "", text: ""},
-    // note17: {title: "", text: ""},
-    // note18: {title: "", text: ""},
-    // note19: {title: "", text: ""},
-    // note20: {title: "", text: ""}
+    note10: {title: "", text: ""}
   })
 
   const [comments, setComments] = useState({
     indication1: '',
     indication2: '',
     indication3: '',
+    indication4: ''
   });
 
   const handleSliderChange = (indication: keyof typeof indications, metric: string, value: number) => {
@@ -144,7 +156,12 @@ export default function Home() {
     };
 
     const fetchExam = async () => {
-      const baseUrl = process.env.NODE_ENV === 'production' ? 'https://your-deployment-url.com' : 'http://localhost:3000';
+      const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || (
+        process.env.NODE_ENV === 'production'
+          ? 'https://your-deployment-url.com'
+          : 'http://localhost:3000'
+      );
+
       try {
         const response = await Promise.all([
           fetch(`${baseUrl}/set${setNumber}/exam.txt`).then(res => res.text())
@@ -156,12 +173,18 @@ export default function Home() {
     }
 
     const fetchIndicationText = async () => {
-      const baseUrl = process.env.NODE_ENV === 'production' ? 'https://your-deployment-url.com' : 'http://localhost:3000';
+      const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || (
+        process.env.NODE_ENV === 'production'
+          ? 'https://your-deployment-url.com'
+          : 'http://localhost:3000'
+      );
+
       try {
         const responses = await Promise.all([
           fetch(`${baseUrl}/set${setNumber}/indication1.txt`).then(res => res.text()),
           fetch(`${baseUrl}/set${setNumber}/indication2.txt`).then(res => res.text()),
           fetch(`${baseUrl}/set${setNumber}/indication3.txt`).then(res => res.text()),
+          fetch(`${baseUrl}/set${setNumber}/indication4.txt`).then(res => res.text()),
         ]);
 
         setIndications(prev => ({
@@ -169,13 +192,18 @@ export default function Home() {
           indication1: { ...prev.indication1, text: responses[0] },
           indication2: { ...prev.indication2, text: responses[1] },
           indication3: { ...prev.indication3, text: responses[2] },
+          indication4: { ...prev.indication4, text: responses[3] },
         }));
       } catch (error) {
         console.error('Error fetching indication text files:', error);
       }
     };
     const fetchNoteText = async () => {
-      const baseUrl = process.env.NODE_ENV === 'production' ? 'https://your-deployment-url.com' : 'http://localhost:3000';
+      const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || (
+        process.env.NODE_ENV === 'production'
+          ? 'https://your-deployment-url.com'
+          : 'http://localhost:3000'
+      );
       try {
         const responses = await Promise.all([
           fetch(`${baseUrl}/set${setNumber}/note1.txt`).then(res => res.text()),
@@ -187,17 +215,7 @@ export default function Home() {
           fetch(`${baseUrl}/set${setNumber}/note7.txt`).then(res => res.text()),
           fetch(`${baseUrl}/set${setNumber}/note8.txt`).then(res => res.text()),
           fetch(`${baseUrl}/set${setNumber}/note9.txt`).then(res => res.text()),
-          fetch(`${baseUrl}/set${setNumber}/note10.txt`).then(res => res.text()),
-          // fetch(`${baseUrl}/set${setNumber}/note11.txt`).then(res => res.text()),
-          // fetch(`${baseUrl}/set${setNumber}/note12.txt`).then(res => res.text()),
-          // fetch(`${baseUrl}/set${setNumber}/note13.txt`).then(res => res.text()),
-          // fetch(`${baseUrl}/set${setNumber}/note14.txt`).then(res => res.text()),
-          // fetch(`${baseUrl}/set${setNumber}/note15.txt`).then(res => res.text()),
-          // fetch(`${baseUrl}/set${setNumber}/note16.txt`).then(res => res.text()),
-          // fetch(`${baseUrl}/set${setNumber}/note17.txt`).then(res => res.text()),
-          // fetch(`${baseUrl}/set${setNumber}/note18.txt`).then(res => res.text()),
-          // fetch(`${baseUrl}/set${setNumber}/note19.txt`).then(res => res.text()),
-          // fetch(`${baseUrl}/set${setNumber}/note20.txt`).then(res => res.text()),
+          fetch(`${baseUrl}/set${setNumber}/note10.txt`).then(res => res.text())
         ]);
     
         const parsedNotes = responses.map(text => {
@@ -215,17 +233,7 @@ export default function Home() {
           note7: parsedNotes[6],
           note8: parsedNotes[7],
           note9: parsedNotes[8],
-          note10: parsedNotes[9],
-          // note11: parsedNotes[10],
-          // note12: parsedNotes[11],
-          // note13: parsedNotes[12],
-          // note14: parsedNotes[13],
-          // note15: parsedNotes[14],
-          // note16: parsedNotes[15],
-          // note17: parsedNotes[16],
-          // note18: parsedNotes[17],
-          // note19: parsedNotes[18],
-          // note20: parsedNotes[19],
+          note10: parsedNotes[9]
         });
       } catch (error) {
         console.error('Error fetching note text files:', error);
@@ -247,18 +255,32 @@ export default function Home() {
       indications.indication1.comprehensiveness,
       indications.indication2.comprehensiveness,
       indications.indication3.comprehensiveness,
+      indications.indication4.comprehensiveness,
       indications.indication1.factuality,
       indications.indication2.factuality,
       indications.indication3.factuality,
+      indications.indication4.factuality,
       indications.indication1.conciseness,
       indications.indication2.conciseness,
       indications.indication3.conciseness,
+      indications.indication4.conciseness,
       comments.indication1,
       comments.indication2,
       comments.indication3,
+      comments.indication4,
       selectedIndication,
       setNumber
     );
+
+    setIndications(prev => ({
+      indication1: { ...prev.indication1, comprehensiveness: 5, factuality: 5, conciseness: 5 },
+      indication2: { ...prev.indication2, comprehensiveness: 5, factuality: 5, conciseness: 5 },
+      indication3: { ...prev.indication3, comprehensiveness: 5, factuality: 5, conciseness: 5 },
+      indication4: { ...prev.indication4, comprehensiveness: 5, factuality: 5, conciseness: 5 },
+    }));
+    setComments({ indication1: '', indication2: '', indication3: '', indication4: '' });
+    setSelectedIndication('Indication 1');
+
     setSetNumber((prev) => prev + 1)
     window.scrollTo({ top: 0})
   };
@@ -394,6 +416,36 @@ export default function Home() {
                   className="mt-2 w-full p-2 border border-gray-300 rounded-lg"
                   value={comments.indication3}
                   onChange={(e) => handleCommentChange('indication3', e.target.value)}
+                />
+              </div>
+
+              {/* Indication #4 */}
+              <div className="flex-1 mx-2">
+              <h3 className="text-lg font-medium">Indication #4</h3>
+              <div className="h-32 overflow-y-auto">
+                <h4 className="text-md font-normal">{indications.indication4.text}</h4>
+              </div>
+              <br/>
+                <Slider
+                  label="Comprehensiveness (i.e. Does it omit any radiologically relevant and/or important detail?)"
+                  value={indications.indication4.comprehensiveness}
+                  onChange={(value) => handleSliderChange('indication4', 'comprehensiveness', value)}
+                />
+                <Slider
+                  label="Factuality (i.e. Does it make up or hallucinate any false information that was not in the medical record?)"
+                  value={indications.indication4.factuality}
+                  onChange={(value) => handleSliderChange('indication4', 'factuality', value)}
+                />
+                <Slider
+                  label="Conciseness (i.e. Could the information be said in shorter /simpler phrases or sentences or do they ramble on with excessive words?)"
+                  value={indications.indication4.conciseness}
+                  onChange={(value) => handleSliderChange('indication4', 'conciseness', value)}
+                />
+                <h2>Comment (Optional)</h2>
+                <textarea
+                  className="mt-2 w-full p-2 border border-gray-300 rounded-lg"
+                  value={comments.indication4}
+                  onChange={(e) => handleCommentChange('indication4', e.target.value)}
                 />
               </div>
 
