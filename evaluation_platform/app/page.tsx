@@ -1,83 +1,91 @@
 "use client";
 
-import Image from "next/image";
 import React, { useEffect, useState } from 'react';
 import Slider from '@/components/Slider';
-import { redirect } from 'next/navigation'
-import { getSetNumber, signout, submitData } from "./actions";
+import { redirect } from 'next/navigation';
+import { getEvaluation, getUserInfo, signout, submitData } from "./actions";
+
+function RankingTable({ title, options, ranking, setRanking, tableName, showValidation }) {
+  const handleSelection = (option, rank) => {
+    setRanking(prev => {
+      const newRanking = { ...prev };
+      Object.keys(newRanking).forEach(key => {
+        if (key !== option && newRanking[key] === rank) {
+          newRanking[key] = null;
+        }
+      });
+      newRanking[option] = rank;
+      return newRanking;
+    });
+  };
+
+  const isRankingComplete = Object.values(ranking).every(rank => rank !== null);
+
+  return (
+    <div className="mb-6">
+      <p className="font-medium mb-2">{title}</p>
+      <table className="w-full mt-2 border-collapse">
+        <thead>
+          <tr>
+            <th className="p-2 border text-center">Rank</th>
+            {options.map((option, idx) => (
+              <th key={idx} className="p-2 border text-center">{option}</th>
+            ))}
+          </tr>
+        </thead>
+        <tbody>
+          {Array.from({ length: options.length }, (_, i) => i + 1).map(rank => (
+            <tr key={rank}>
+              <td className="p-2 border text-center font-medium">{rank}</td>
+              {options.map((option, idx) => (
+                <td key={idx} className="p-2 border text-center">
+                  <input
+                    type="radio"
+                    name={`${tableName}-${option}`} 
+                    value={rank}
+                    checked={ranking[option] === rank}
+                    onChange={() => handleSelection(option, rank)}
+                  />
+                </td>
+              ))}
+            </tr>
+          ))}
+        </tbody>
+      </table>
+
+      {showValidation && !isRankingComplete && (
+        <p className="text-red-500 text-sm mt-2">
+          ⚠️ Please assign a rank to every option above.
+        </p>
+      )}
+    </div>
+  );
+}
 
 export default function Home() {
-  // Set a constant for the maximum number of cases
-  const TOTAL_CASES = 20;
+  const TOTAL_CASES = 25;
 
-  const [setNumber, setSetNumber] = useState(1); // Default to 1
-  const [exam, setExam] = useState("")
-  const [selectedIndication, setSelectedIndication] = useState('Indication 1');
+  const [setNumber, setSetNumber] = useState(1);
+  const [userId, setUserId] = useState(1);
+  const [maxAvailableSet, setMaxAvailableSet] = useState(1); // highest case user is allowed to view
 
-  const IndicationSelector = () => {
-    const handleSelection = (event: { target: { value: React.SetStateAction<string>; }; }) => {
-      setSelectedIndication(event.target.value);
-    };
-
-    return (
-      <div className="p-4">
-        <div className="flex items-center mb-2">
-          <input
-            type="radio"
-            id="indication1"
-            name="indication"
-            value="Indication 1"
-            checked={selectedIndication === 'Indication 1'}
-            onChange={handleSelection}
-            className="mr-2"
-          />
-          <label htmlFor="indication1" className="text-md">Indication 1</label>
-        </div>
-        <div className="flex items-center mb-2">
-          <input
-            type="radio"
-            id="indication2"
-            name="indication"
-            value="Indication 2"
-            checked={selectedIndication === 'Indication 2'}
-            onChange={handleSelection}
-            className="mr-2"
-          />
-          <label htmlFor="indication2" className="text-md">Indication 2</label>
-        </div>
-        <div className="flex items-center mb-2">
-          <input
-            type="radio"
-            id="indication3"
-            name="indication"
-            value="Indication 3"
-            checked={selectedIndication === 'Indication 3'}
-            onChange={handleSelection}
-            className="mr-2"
-          />
-          <label htmlFor="indication3" className="text-md">Indication 3</label>
-        </div>
-        <div className="flex items-center mb-2">
-          <input
-            type="radio"
-            id="indication4"
-            name="indication"
-            value="Indication 4"
-            checked={selectedIndication === 'Indication 4'}
-            onChange={handleSelection}
-            className="mr-2"
-          />
-          <label htmlFor="indication4" className="text-md">Indication 4</label>
-        </div>
-      </div>
-    );
-  };
+  const [exam, setExam] = useState("");
+  const [showNotes, setShowNotes] = useState(true);
+  const [generalComment, setGeneralComment] = useState('');
+  const [showValidation, setShowValidation] = useState(false);
 
   const [indications, setIndications] = useState({
     indication1: { comprehensiveness: 5, factuality: 5, conciseness: 5, text: "" },
     indication2: { comprehensiveness: 5, factuality: 5, conciseness: 5, text: "" },
     indication3: { comprehensiveness: 5, factuality: 5, conciseness: 5, text: "" },
     indication4: { comprehensiveness: 5, factuality: 5, conciseness: 5, text: "" },
+  });
+
+  const [comments, setComments] = useState({
+    indication1: '',
+    indication2: '',
+    indication3: '',
+    indication4: ''
   });
 
   const [notes, setNotes] = useState({
@@ -93,134 +101,61 @@ export default function Home() {
     note10: { title: "", text: "" }
   });
 
-  const [comments, setComments] = useState({
-    indication1: '',
-    indication2: '',
-    indication3: '',
-    indication4: ''
+  const [protocolRanking, setProtocolRanking] = useState({
+    "Indication 1": null,
+    "Indication 2": null,
+    "Indication 3": null,
+    "Indication 4": null,
+  });
+  const [interpretationRanking, setInterpretationRanking] = useState({
+    "Indication 1": null,
+    "Indication 2": null,
+    "Indication 3": null,
+    "Indication 4": null,
+  });
+  const [overallRanking, setOverallRanking] = useState({
+    "Indication 1": null,
+    "Indication 2": null,
+    "Indication 3": null,
+    "Indication 4": null,
+  });
+  const [factorRanking, setFactorRanking] = useState({
+    "Comprehensiveness": null,
+    "Factuality": null,
+    "Conciseness": null,
   });
 
-  const handleSliderChange = (indication: keyof typeof indications, metric: string, value: number) => {
-    setIndications((prev) => ({
+  const handleSliderChange = (indication, metric, value) => {
+    setIndications(prev => ({
       ...prev,
-      [indication]: {
-        ...prev[indication],
-        [metric]: value,
-      },
+      [indication]: { ...prev[indication], [metric]: value },
     }));
   };
 
-  const handleCommentChange = (indication: keyof typeof comments, value: string) => {
-    setComments((prev) => ({
+  const handleCommentChange = (indication, value) => {
+    setComments(prev => ({
       ...prev,
       [indication]: value,
     }));
   };
-
-  useEffect(() => {
-    // Fetch the set number when the component mounts
-    const fetchSetNumber = async () => {
-      const number = await getSetNumber();
-      setSetNumber(number);
-    };
-
-    const fetchExam = async () => {
-      const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || (
-        process.env.NODE_ENV === 'production'
-          ? 'https://your-deployment-url.com'
-          : 'http://localhost:3000'
-      );
-
-      try {
-        const response = await Promise.all([
-          fetch(`${baseUrl}/set${setNumber}/exam.txt`).then(res => res.text())
-        ]);
-        setExam(response[0]);
-      } catch (error) {
-        console.error('Error fetching exam text:', error);
-      }
-    };
-
-    const fetchIndicationText = async () => {
-      const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || (
-        process.env.NODE_ENV === 'production'
-          ? 'https://your-deployment-url.com'
-          : 'http://localhost:3000'
-      );
-
-      try {
-        const responses = await Promise.all([
-          fetch(`${baseUrl}/set${setNumber}/indication1.txt`).then(res => res.text()),
-          fetch(`${baseUrl}/set${setNumber}/indication2.txt`).then(res => res.text()),
-          fetch(`${baseUrl}/set${setNumber}/indication3.txt`).then(res => res.text()),
-          fetch(`${baseUrl}/set${setNumber}/indication4.txt`).then(res => res.text()),
-        ]);
-
-        setIndications(prev => ({
-          ...prev,
-          indication1: { ...prev.indication1, text: responses[0] },
-          indication2: { ...prev.indication2, text: responses[1] },
-          indication3: { ...prev.indication3, text: responses[2] },
-          indication4: { ...prev.indication4, text: responses[3] },
-        }));
-      } catch (error) {
-        console.error('Error fetching indication text files:', error);
-      }
-    };
-
-    const fetchNoteText = async () => {
-      const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || (
-        process.env.NODE_ENV === 'production'
-          ? 'https://your-deployment-url.com'
-          : 'http://localhost:3000'
-      );
-      try {
-        const responses = await Promise.all([
-          fetch(`${baseUrl}/set${setNumber}/note1.txt`).then(res => res.text()),
-          fetch(`${baseUrl}/set${setNumber}/note2.txt`).then(res => res.text()),
-          fetch(`${baseUrl}/set${setNumber}/note3.txt`).then(res => res.text()),
-          fetch(`${baseUrl}/set${setNumber}/note4.txt`).then(res => res.text()),
-          fetch(`${baseUrl}/set${setNumber}/note5.txt`).then(res => res.text()),
-          fetch(`${baseUrl}/set${setNumber}/note6.txt`).then(res => res.text()),
-          fetch(`${baseUrl}/set${setNumber}/note7.txt`).then(res => res.text()),
-          fetch(`${baseUrl}/set${setNumber}/note8.txt`).then(res => res.text()),
-          fetch(`${baseUrl}/set${setNumber}/note9.txt`).then(res => res.text()),
-          fetch(`${baseUrl}/set${setNumber}/note10.txt`).then(res => res.text())
-        ]);
-
-        const parsedNotes = responses.map(text => {
-          const [title, ...body] = text.split('\n');
-          return { title, text: body.join('\n') };
-        });
-
-        setNotes({
-          note1: parsedNotes[0],
-          note2: parsedNotes[1],
-          note3: parsedNotes[2],
-          note4: parsedNotes[3],
-          note5: parsedNotes[4],
-          note6: parsedNotes[5],
-          note7: parsedNotes[6],
-          note8: parsedNotes[7],
-          note9: parsedNotes[8],
-          note10: parsedNotes[9]
-        });
-      } catch (error) {
-        console.error('Error fetching note text files:', error);
-      }
-    };
-
-    fetchSetNumber();
-    fetchExam();
-    fetchIndicationText();
-    fetchNoteText();
-  }, [setNumber]);
 
   const handleSignout = async () => {
     await signout();
   };
 
   const handleSubmitData = async () => {
+    const isProtocolRankingComplete = Object.values(protocolRanking).every(rank => rank !== null);
+    const isInterpretationRankingComplete = Object.values(interpretationRanking).every(rank => rank !== null);
+    const isOverallRankingComplete = Object.values(overallRanking).every(rank => rank !== null);
+    const isFactorRankingComplete = Object.values(factorRanking).every(rank => rank !== null);
+
+    if (!isProtocolRankingComplete || !isInterpretationRankingComplete || !isOverallRankingComplete || !isFactorRankingComplete) {
+      setShowValidation(true);
+      return;
+    }
+
+    setShowValidation(false);
+
     await submitData(
       indications.indication1.comprehensiveness,
       indications.indication2.comprehensiveness,
@@ -238,34 +173,175 @@ export default function Home() {
       comments.indication2,
       comments.indication3,
       comments.indication4,
-      selectedIndication,
+      JSON.stringify(protocolRanking),
+      JSON.stringify(interpretationRanking),
+      JSON.stringify(overallRanking),
+      JSON.stringify(factorRanking),
+      generalComment,
       setNumber
     );
 
-    // Reset the evaluation state
-    setIndications(prev => ({
-      indication1: { ...prev.indication1, comprehensiveness: 5, factuality: 5, conciseness: 5 },
-      indication2: { ...prev.indication2, comprehensiveness: 5, factuality: 5, conciseness: 5 },
-      indication3: { ...prev.indication3, comprehensiveness: 5, factuality: 5, conciseness: 5 },
-      indication4: { ...prev.indication4, comprehensiveness: 5, factuality: 5, conciseness: 5 },
-    }));
+    // Reset states for next case
+    setIndications({
+      indication1: { ...indications.indication1, comprehensiveness: 5, factuality: 5, conciseness: 5 },
+      indication2: { ...indications.indication2, comprehensiveness: 5, factuality: 5, conciseness: 5 },
+      indication3: { ...indications.indication3, comprehensiveness: 5, factuality: 5, conciseness: 5 },
+      indication4: { ...indications.indication4, comprehensiveness: 5, factuality: 5, conciseness: 5 },
+    });
     setComments({ indication1: '', indication2: '', indication3: '', indication4: '' });
-    setSelectedIndication('Indication 1');
+    setProtocolRanking({
+      "Indication 1": null,
+      "Indication 2": null,
+      "Indication 3": null,
+      "Indication 4": null,
+    });
+    setInterpretationRanking({
+      "Indication 1": null,
+      "Indication 2": null,
+      "Indication 3": null,
+      "Indication 4": null,
+    });
+    setOverallRanking({
+      "Indication 1": null,
+      "Indication 2": null,
+      "Indication 3": null,
+      "Indication 4": null,
+    });
+    setFactorRanking({
+      "Comprehensiveness": null,
+      "Factuality": null,
+      "Conciseness": null,
+    });
 
-    // Move to the next case
-    setSetNumber((prev) => prev + 1);
+    setSetNumber(prev => prev + 1);
+    if (setNumber === maxAvailableSet) {
+      setMaxAvailableSet(prev => Math.max(prev + 1, maxAvailableSet));
+    }
     window.scrollTo({ top: 0 });
   };
 
-  // If the current set number exceeds the TOTAL_CASES, render a thank you screen
+  useEffect(() => {
+    const initializeUserInfo = async () => {
+      const userInfo = await getUserInfo();
+      setMaxAvailableSet(userInfo?.set_id);
+      setSetNumber(userInfo?.set_id);
+      setUserId(userInfo?.id);
+    };
+    initializeUserInfo();
+  }, []); 
+
+  useEffect(() => {
+    const fetchData = async (setNumber, userId) => {
+      const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || (process.env.NODE_ENV === 'production'
+        ? 'https://your-deployment-url.com'
+        : 'http://localhost:3000');
+  
+      try {
+        const examResponse = await fetch(`${baseUrl}/user${userId}/set${setNumber}/exam.txt`);
+        setExam(await examResponse.text());
+      } catch (error) {
+        console.error('Error fetching exam:', error);
+      }
+  
+      try {
+        const responses = await Promise.all(
+          [1, 2, 3, 4].map(i =>
+            fetch(`${baseUrl}/user${userId}/set${setNumber}/indication${i}.txt`).then(res => res.text())
+          )
+        );
+        setIndications(prev => ({
+          indication1: { ...prev.indication1, text: responses[0] },
+          indication2: { ...prev.indication2, text: responses[1] },
+          indication3: { ...prev.indication3, text: responses[2] },
+          indication4: { ...prev.indication4, text: responses[3] }
+        }));
+      } catch (error) {
+        console.error('Error fetching indications:', error);
+      }
+  
+      try {
+        const responses = await Promise.all(
+          Array.from({ length: 10 }, (_, i) =>
+            fetch(`${baseUrl}/user${userId}/set${setNumber}/note${i + 1}.txt`).then(res => res.text())
+          )
+        );
+        const parsed = responses.map(text => {
+          const [title, ...body] = text.split('\n');
+          return { title, text: body.join('\n') };
+        });
+        setNotes(Object.fromEntries(parsed.map((n, i) => [`note${i + 1}`, n])));
+      } catch (error) {
+        console.error('Error fetching notes:', error);
+      }
+  
+      try {
+        const saved = await getEvaluation(setNumber, userId);
+        if (saved) {
+          setIndications(prev => ({
+            indication1: { ...prev.indication1, ...saved.indications.indication1 },
+            indication2: { ...prev.indication2, ...saved.indications.indication2 },
+            indication3: { ...prev.indication3, ...saved.indications.indication3 },
+            indication4: { ...prev.indication4, ...saved.indications.indication4 },
+          }));
+          setComments(saved.comments);
+          setProtocolRanking(JSON.parse(saved.protocolRanking));
+          setInterpretationRanking(JSON.parse(saved.interpretationRanking));
+          setOverallRanking(JSON.parse(saved.overallRanking));
+          setFactorRanking(JSON.parse(saved.factorRanking));
+          setGeneralComment(saved.generalComment);
+        } else {
+          setIndications({
+            indication1: { ...indications.indication1, comprehensiveness: 5, factuality: 5, conciseness: 5 },
+            indication2: { ...indications.indication2, comprehensiveness: 5, factuality: 5, conciseness: 5 },
+            indication3: { ...indications.indication3, comprehensiveness: 5, factuality: 5, conciseness: 5 },
+            indication4: { ...indications.indication4, comprehensiveness: 5, factuality: 5, conciseness: 5 },
+          });
+          setComments({
+            indication1: '',
+            indication2: '',
+            indication3: '',
+            indication4: '',
+          });
+          setProtocolRanking({
+            "Indication 1": null,
+            "Indication 2": null,
+            "Indication 3": null,
+            "Indication 4": null,
+          });
+          setInterpretationRanking({
+            "Indication 1": null,
+            "Indication 2": null,
+            "Indication 3": null,
+            "Indication 4": null,
+          });
+          setOverallRanking({
+            "Indication 1": null,
+            "Indication 2": null,
+            "Indication 3": null,
+            "Indication 4": null,
+          });
+          setFactorRanking({
+            "Comprehensiveness": null,
+            "Factuality": null,
+            "Conciseness": null,
+          });
+        }
+      } catch (error) {
+        console.error('Error fetching saved evaluation:', error);
+      }
+    };
+  
+    fetchData(setNumber, userId);
+  }, [setNumber, userId]);
+
   if (setNumber > TOTAL_CASES) {
     return (
       <div className="flex items-center justify-center min-h-screen bg-gray-100 p-5">
-        <div className="w-full max-w-8xl bg-white shadow-lg rounded-lg p-8 flex flex-col items-center">
+        <div className="w-full max-w-4xl bg-white shadow-lg rounded-lg p-8 text-center">
           <h2 className="text-2xl font-semibold mb-6">Thank you for participating!</h2>
           <button
             onClick={handleSignout}
-            className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+            className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
           >
             Sign Out
           </button>
@@ -274,174 +350,144 @@ export default function Home() {
     );
   }
 
-  // Regular evaluation screen when setNumber <= TOTAL_CASES
   return (
     <div className="flex items-center justify-center min-h-screen bg-gray-100 p-5">
       <div className="w-full max-w-8xl bg-white shadow-lg rounded-lg p-8 flex flex-col">
-        <div className="flex justify-between items-center mb-10">
-          <h2 className="bg-blue-600 px-4 py-2 rounded-lg text-white">
-            Case {setNumber} out of {TOTAL_CASES}
+        <div className="relative w-full flex items-center justify-center mb-6">
+          <h2 className="px-4 py-2 text-lg rounded-lg text-gray">
+            Case {setNumber} of {TOTAL_CASES}
           </h2>
           <button
             onClick={handleSignout}
-            className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+            className="absolute right-4 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 min-w-[100px] text-center"
           >
             Sign Out
           </button>
+          <button
+            onClick={() => setShowNotes(prev => !prev)}
+            className="absolute right-[120px] px-4 py-2 bg-gray-200 hover:bg-gray-300 text-gray-800 rounded-lg"
+          >
+            {showNotes ? 'Hide Notes' : 'Show Notes'}
+          </button>
+          <div className="absolute left-4 flex gap-4">
+            <button
+              onClick={() => setSetNumber(prev => Math.max(prev - 1, 1))}
+              disabled={setNumber <= 1}
+              className={`px-4 py-2 rounded-lg text-gray-800 ${
+                setNumber <= 1
+                  ? 'bg-gray-100 text-gray-400 cursor-not-allowed'
+                  : 'bg-gray-200 hover:bg-gray-300'
+              }`}
+            >
+              Previous Case
+            </button>
+            <button
+              onClick={() => setSetNumber(prev => Math.min(prev + 1, TOTAL_CASES))}
+              disabled={setNumber >= maxAvailableSet}
+              className={`px-4 py-2 rounded-lg text-gray-800 ${
+                setNumber >= maxAvailableSet
+                  ? 'bg-gray-100 text-gray-400 cursor-not-allowed'
+                  : 'bg-gray-200 hover:bg-gray-300'
+              }`}
+            >
+              Next Case
+            </button>
+          </div>
         </div>
         <div className="flex flex-row">
-          {/* Left side: Notes */}
-          <div className="w-1/2 pr-4">
-            <h2 className="text-xl font-semibold mb-4">Notes</h2>
-            <div className="space-y-4">
-              {Object.keys(notes).map((noteKey) => {
-                const key = noteKey as keyof typeof notes;
-                return (
+          {showNotes && (
+            <div className="w-1/2 pr-4">
+              <h2 className="text-xl font-semibold mb-4">Notes</h2>
+              <div className="space-y-4">
+                {Object.entries(notes).map(([key, note]) => (
                   <details key={key} className="bg-gray-100 p-4 rounded-lg">
-                    <summary className="cursor-pointer text-lg font-medium">
-                      {notes[key].title}
-                    </summary>
+                    <summary className="cursor-pointer text-lg font-medium">{note.title}</summary>
                     <p className="mt-2 text-sm text-gray-600 overflow-y-auto" style={{ height: '600px' }}>
-                      {notes[key].text}
+                      {note.text}
                     </p>
                   </details>
-                );
-              })}
+                ))}
+              </div>
             </div>
-          </div>
-          {/* Right side: Evaluation */}
-          <div className="w-1/2 pl-4">
+          )}
+          <div className={`${showNotes ? 'w-1/2' : 'w-full'} pl-4`}>
             <h2 className="text-xl font-semibold mb-4">Evaluation</h2>
             <div className="bg-gray-100 p-4 rounded-lg space-y-6">
               <div>
                 <h3 className="text-lg font-medium">Exam</h3>
-                <h4 className="text-md font-normal">{exam}</h4>
+                <p className="text-md">{exam}</p>
               </div>
-              <div className="flex flex-row justify-around">
-                {/* Indication #1 */}
-                <div className="flex-1 mx-2">
-                  <h3 className="text-lg font-medium">Indication #1</h3>
-                  <div className="h-32 overflow-y-auto">
-                    <h4 className="text-md font-normal">{indications.indication1.text}</h4>
+              <div className={`grid gap-4 ${showNotes ? 'grid-cols-2' : 'grid-cols-4'}`}>
+                {Object.entries(indications).map(([key, val]) => (
+                  <div key={key} className="bg-white rounded p-4 shadow">
+                    <h3 className="text-lg font-medium capitalize">{key.replace('indication', 'Indication ')}</h3>
+                    <p className="text-sm mt-2 mb-2 max-h-48 overflow-y-auto">{val.text}</p>
+                    <Slider label="Comprehensiveness" value={val.comprehensiveness} onChange={(v) => handleSliderChange(key, 'comprehensiveness', v)} />
+                    <Slider label="Factuality" value={val.factuality} onChange={(v) => handleSliderChange(key, 'factuality', v)} />
+                    <Slider label="Conciseness" value={val.conciseness} onChange={(v) => handleSliderChange(key, 'conciseness', v)} />
+                    <textarea
+                      placeholder="Comment (Optional)"
+                      className="mt-2 w-full p-2 border border-gray-300 rounded-lg"
+                      value={comments[key]}
+                      onChange={(e) => handleCommentChange(key, e.target.value)}
+                    />
                   </div>
-                  <br/>
-                  <Slider
-                    label="Comprehensiveness (i.e. Does it omit any radiologically relevant and/or important detail?)"
-                    value={indications.indication1.comprehensiveness}
-                    onChange={(value) => handleSliderChange('indication1', 'comprehensiveness', value)}
-                  />
-                  <Slider
-                    label="Factuality (i.e. Does it make up or hallucinate any false information that was not in the medical record?)"
-                    value={indications.indication1.factuality}
-                    onChange={(value) => handleSliderChange('indication1', 'factuality', value)}
-                  />
-                  <Slider
-                    label="Conciseness (i.e. Could the information be said in shorter /simpler phrases or sentences or do they ramble on with excessive words?)"
-                    value={indications.indication1.conciseness}
-                    onChange={(value) => handleSliderChange('indication1', 'conciseness', value)}
-                  />
-                  <h2>Comment (Optional)</h2>
-                  <textarea
-                    className="mt-2 w-full p-2 border border-gray-300 rounded-lg"
-                    value={comments.indication1}
-                    onChange={(e) => handleCommentChange('indication1', e.target.value)}
-                  />
-                </div>
-                {/* Indication #2 */}
-                <div className="flex-1 mx-2">
-                  <h3 className="text-lg font-medium">Indication #2</h3>
-                  <div className="h-32 overflow-y-auto">
-                    <h4 className="text-md font-normal">{indications.indication2.text}</h4>
-                  </div>
-                  <br/>
-                  <Slider
-                    label="Comprehensiveness (i.e. Does it omit any radiologically relevant and/or important detail?)"
-                    value={indications.indication2.comprehensiveness}
-                    onChange={(value) => handleSliderChange('indication2', 'comprehensiveness', value)}
-                  />
-                  <Slider
-                    label="Factuality (i.e. Does it make up or hallucinate any false information that was not in the medical record?)"
-                    value={indications.indication2.factuality}
-                    onChange={(value) => handleSliderChange('indication2', 'factuality', value)}
-                  />
-                  <Slider
-                    label="Conciseness (i.e. Could the information be said in shorter /simpler phrases or sentences or do they ramble on with excessive words?)"
-                    value={indications.indication2.conciseness}
-                    onChange={(value) => handleSliderChange('indication2', 'conciseness', value)}
-                  />
-                  <h2>Comment (Optional)</h2>
-                  <textarea
-                    className="mt-2 w-full p-2 border border-gray-300 rounded-lg"
-                    value={comments.indication2}
-                    onChange={(e) => handleCommentChange('indication2', e.target.value)}
-                  />
-                </div>
-                {/* Indication #3 */}
-                <div className="flex-1 mx-2">
-                  <h3 className="text-lg font-medium">Indication #3</h3>
-                  <div className="h-32 overflow-y-auto">
-                    <h4 className="text-md font-normal">{indications.indication3.text}</h4>
-                  </div>
-                  <br/>
-                  <Slider
-                    label="Comprehensiveness (i.e. Does it omit any radiologically relevant and/or important detail?)"
-                    value={indications.indication3.comprehensiveness}
-                    onChange={(value) => handleSliderChange('indication3', 'comprehensiveness', value)}
-                  />
-                  <Slider
-                    label="Factuality (i.e. Does it make up or hallucinate any false information that was not in the medical record?)"
-                    value={indications.indication3.factuality}
-                    onChange={(value) => handleSliderChange('indication3', 'factuality', value)}
-                  />
-                  <Slider
-                    label="Conciseness (i.e. Could the information be said in shorter /simpler phrases or sentences or do they ramble on with excessive words?)"
-                    value={indications.indication3.conciseness}
-                    onChange={(value) => handleSliderChange('indication3', 'conciseness', value)}
-                  />
-                  <h2>Comment (Optional)</h2>
-                  <textarea
-                    className="mt-2 w-full p-2 border border-gray-300 rounded-lg"
-                    value={comments.indication3}
-                    onChange={(e) => handleCommentChange('indication3', e.target.value)}
-                  />
-                </div>
-                {/* Indication #4 */}
-                <div className="flex-1 mx-2">
-                  <h3 className="text-lg font-medium">Indication #4</h3>
-                  <div className="h-32 overflow-y-auto">
-                    <h4 className="text-md font-normal">{indications.indication4.text}</h4>
-                  </div>
-                  <br/>
-                  <Slider
-                    label="Comprehensiveness (i.e. Does it omit any radiologically relevant and/or important detail?)"
-                    value={indications.indication4.comprehensiveness}
-                    onChange={(value) => handleSliderChange('indication4', 'comprehensiveness', value)}
-                  />
-                  <Slider
-                    label="Factuality (i.e. Does it make up or hallucinate any false information that was not in the medical record?)"
-                    value={indications.indication4.factuality}
-                    onChange={(value) => handleSliderChange('indication4', 'factuality', value)}
-                  />
-                  <Slider
-                    label="Conciseness (i.e. Could the information be said in shorter /simpler phrases or sentences or do they ramble on with excessive words?)"
-                    value={indications.indication4.conciseness}
-                    onChange={(value) => handleSliderChange('indication4', 'conciseness', value)}
-                  />
-                  <h2>Comment (Optional)</h2>
-                  <textarea
-                    className="mt-2 w-full p-2 border border-gray-300 rounded-lg"
-                    value={comments.indication4}
-                    onChange={(e) => handleCommentChange('indication4', e.target.value)}
-                  />
-                </div>
+                ))}
               </div>
+
+              {/* Ranking UIs for each question */}
+              <RankingTable
+                title="Rank the indications based on how useful they are for protocoling this exam (1 = Most useful, 4 = Least useful):"
+                options={["Indication 1", "Indication 2", "Indication 3", "Indication 4"]}
+                ranking={protocolRanking}
+                setRanking={setProtocolRanking}
+                tableName="protocol"
+                showValidation={showValidation}
+              />
+
+              <RankingTable
+                title="Rank the indications based on how much useful information they provide for interpreting this exam (1 = Most useful, 4 = Least useful):"
+                options={["Indication 1", "Indication 2", "Indication 3", "Indication 4"]}
+                ranking={interpretationRanking}
+                setRanking={setInterpretationRanking}
+                tableName="interpretation"
+                showValidation={showValidation}
+              />
+
+              <RankingTable
+                title="Rank the indications based on your overall preference (1 = Most preferred, 4 = Least preferred):"
+                options={["Indication 1", "Indication 2", "Indication 3", "Indication 4"]}
+                ranking={overallRanking}
+                setRanking={setOverallRanking}
+                tableName="overall"
+                showValidation={showValidation}
+              />
+
+              <RankingTable
+                title="Rank the factors based on how much they influenced your overall preference (1 = Most influential, 3 = Least influential):"
+                options={["Comprehensiveness", "Factuality", "Conciseness"]}
+                ranking={factorRanking}
+                setRanking={setFactorRanking}
+                tableName="factor"
+                showValidation={showValidation}
+              />
+
               <div>
-                <h3 className="text-lg font-medium">Overall Preference</h3>
-                <IndicationSelector />
+                <p className="font-medium">Any general comments about this case?</p>
+                <textarea
+                  placeholder="General feedback (Optional)"
+                  value={generalComment}
+                  onChange={(e) => setGeneralComment(e.target.value)}
+                  className="mt-2 w-full p-2 border border-gray-300 rounded-lg"
+                  rows={2}
+                />
               </div>
-              {/* Centered Submit Button */}
+
               <div className="flex justify-center">
-                <button onClick={handleSubmitData} className="px-4 py-2 bg-blue-700 text-white rounded-lg">
+                <button
+                  onClick={handleSubmitData}
+                  className="px-4 py-2 bg-blue-700 text-white rounded-lg hover:bg-blue-800"
+                >
                   Submit Evaluation
                 </button>
               </div>
