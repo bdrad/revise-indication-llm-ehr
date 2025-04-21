@@ -508,7 +508,7 @@ export default function Home() {
 
               {/* Ranking UIs for each question */}
               <RankingTable
-                title="Rank the indications based on how useful they are for protocoling this exam (1 = Most useful, 4 = Least useful):"
+                title="Rank the indications based on which would be most useful for protocoling this exam (1 = Most useful, 4 = Least useful):"
                 options={["Indication 1", "Indication 2", "Indication 3", "Indication 4"]}
                 ranking={protocolRanking}
                 setRanking={setProtocolRanking}
@@ -517,7 +517,7 @@ export default function Home() {
               />
 
               <RankingTable
-                title="Rank the indications based on how much useful information they provide for interpreting this exam (1 = Most useful, 4 = Least useful):"
+                title="Rank the indications based on which would be most useful to have while interpreting this exam (1 = Most useful, 4 = Least useful):"
                 options={["Indication 1", "Indication 2", "Indication 3", "Indication 4"]}
                 ranking={interpretationRanking}
                 setRanking={setInterpretationRanking}
