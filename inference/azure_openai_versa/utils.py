@@ -14,25 +14,21 @@ RETRY_SECS = 15
 MAX_RETRIES = 5
 
 API_DETAILS = {
+    "o1": {
+        "DEPLOYMENT_ID": "o1-2024-12-17",
+        "API_VERSION": "2025-02-01-preview"
+    },
+    "o1_mini": {
+        "DEPLOYMENT_ID": "o1-mini-2024-09-12",
+        "API_VERSION": "2025-02-01-preview"
+    },
     "gpt4o": {
         "DEPLOYMENT_ID": "gpt-4o-2024-05-13",
-        "API_VERSION": "2024-10-01-preview"
+        "API_VERSION": "2025-02-01-preview"
     }, 
     "gpt4o_mini": {
         "DEPLOYMENT_ID": "gpt-4o-mini-2024-07-18",
-        "API_VERSION": "2024-10-01-preview"
-    }, 
-    "gpt4_turbo": {
-        "DEPLOYMENT_ID": "gpt-4-turbo-128k",
-        "API_VERSION": "2024-10-01-preview"
-    }, 
-    "gpt4": {
-        "DEPLOYMENT_ID": "gpt-4",
-        "API_VERSION": "2024-10-01-preview"
-    }, 
-    "gpt3_5": {
-        "DEPLOYMENT_ID": "gpt-35-turbo",
-        "API_VERSION": "2024-10-01-preview"
+        "API_VERSION": "2025-02-01-preview"
     }
 }
 
@@ -52,7 +48,6 @@ def chat(prompt, model):
             response = post_request(url, headers, body)
             output = json.loads(response.text).get('choices')[0].get('message').get('content')
             return output
-            break
         except Exception as e:
             retries = exception_code(retries, DEPLOYMENT_ID, e)
 
@@ -74,14 +69,14 @@ def exception_code(retries, deployment_id, e):
     time.sleep(RETRY_SECS)
     return retries
 
-def chat_gpt4(prompt):
-    return chat(prompt, "gpt4")
+def chat_o1(prompt):
+    return chat(prompt, "o1")
+
+def chat_o1_mini(prompt):
+    return chat(prompt, "o1_mini")
 
 def chat_gpt4o(prompt):
     return chat(prompt, "gpt4o")
 
-def chat_gpt4_turbo(prompt):
-    return chat(prompt, "gpt4_turbo")
-
-def chat_gpt3_5(prompt):
-    return chat(prompt, "gpt3_5")
+def chat_gpt4o_mini(prompt):
+    return chat(prompt, "gpt4o_mini")

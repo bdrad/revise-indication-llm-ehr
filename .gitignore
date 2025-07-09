@@ -11,4 +11,8 @@ dataset_curation/archive_data_2/*.parquet
 dataset_curation/archive_data_3/*.parquet
 
 inference/results/*
+analysis/archive_data/*
 analysis/llm_evaluation_scores/*
+analysis/*.csv
+analysis/*.png
+analysis/*.ttf

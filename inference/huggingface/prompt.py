@@ -1,8 +1,8 @@
 def generate_prompt(exam_type, original_indication, clinical_notes):
     clinical_notes_string = "\n".join([n[:2000] for n in clinical_notes])
     return f"""Given the following set of CLINICAL NOTES and ORIGINAL INDICATION, generate a REVISED INDICATION
-that supplies the relevant clinical history which includes patient's sex, age, and relevant symptoms which may optionally include
-biopsies, surgeries, resections, treatments related to the radiological exam of {exam_type}. 
+that supplies the relevant clinical history which may optionally include the patient's sex, age, relevant symptoms,
+biopsies, surgeries, resections, and treatments related to the radiological exam of {exam_type}. 
 If the ORIGINAL INDICATION is for evaluation of oncological or other chronic conditions, make sure to include
 surgeries, biopsies, and treatments with dates as applicable, only 20 words or less. Otherwise, generate only up to 
 10 words or less. Indication should be only one sentence. 

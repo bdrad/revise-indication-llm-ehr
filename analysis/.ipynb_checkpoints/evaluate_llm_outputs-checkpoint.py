@@ -8,9 +8,6 @@ import tqdm
 import argparse
 import subprocess
 from radgraph import F1RadGraph
-import torch
-import torch.nn as nn
-from bert_score import BERTScorer
 
 BASEPATH = "/mnt/sohn2022/Adrian/rad-llm-pmhx/inference/results/llm_automated_evaluation_dataset"
 
@@ -24,53 +21,9 @@ MODEL_DICT = {
     "meditron": "OpenMeditron_Meditron3-8B",
     "gpt4o": "gpt4o",
     "gpt4o_mini": "gpt4o_mini",
-    "o1": "o1",
-    "o1_mini": "o1_mini",
     "claude3_5": "claude3_5",
     "referring_physician": "gpt4o"
 }
-
-class BertScore(nn.Module):
-    def __init__(self):
-        super(BertScore, self).__init__()
-        with torch.no_grad():
-            self.bert_scorer = BERTScorer(
-                model_type="distilbert-base-uncased",
-                num_layers=4,
-                batch_size=8,
-                nthreads=8,
-                all_layers=False,
-                idf=False,
-                lang="en",
-                rescale_with_baseline=True,
-                baseline_path=None,
-            )
-
-    def forward(self, refs, hyps):
-        p, r, f = self.bert_scorer.score(
-            cands=hyps,
-            refs=refs,
-            verbose=False,
-            batch_size=8,
-        )
-        return f.tolist()
-    
-class AlignScorer(nn.Module):
-    def __init__(self):
-        super(AlignScorer, self).__init__()
-        self.align_scorer = AlignScore(
-            model='roberta-base', 
-            device='cuda:0',
-            batch_size=32, 
-            ckpt_path='AlignScore-base.ckpt', 
-            evaluation_mode='nli_sp')
-
-    def forward(self, refs, hyps):
-        f = self.align_scorer.score(
-            contexts=refs,
-            claims=hyps,
-        )
-        return f
 
 def compute_rouge_scores(data, pred_col="llm_indication", gt_col="additional_history", variant="rougeL"):
     rouge = evaluate.load('rouge')
@@ -116,7 +69,7 @@ def main(args):
             }
         )
     medcon_csv.to_csv(medcon_csv_path, index=False)
-    python_path = "/home/developer/anaconda3/bin/python"
+    python_path = "/home/bdrad/miniconda3/bin/python"
     subprocess.run([
         python_path, '/mnt/sohn2022/Adrian/Utils/Evaluation/MEDCON/main.py',
         f"--csv_path={medcon_csv_path}",
@@ -139,56 +92,10 @@ def main(args):
         )
     radgraph_scores = np.array(reward_list[-1])
 
-    # BERTScore
-    if args.model == "referring_physician":
-        bert_scores = BertScore()(
-            hyps=data["original_history"].tolist(),
-            refs=data["additional_history"].tolist()
-        )
-    else:
-        bert_scores = BertScore()(
-            hyps=data["llm_indication"].tolist(),
-            refs=data["additional_history"].tolist()
-        )
-
-    # AlignScore
-    alignscore_csv_path = f'{save_dir_basepath}/{args.model}_alignscore_temp.csv'
-    alignscore_output_path = f'{save_dir_basepath}/{args.model}_alignscore_scores.csv'
-
-    if args.model == "referring_physician":
-        alignscore_csv = data[["additional_history", "original_history"]]
-        alignscore_csv = alignscore_csv.rename(
-            columns={
-                "original_history": "generated",
-                "additional_history": "reference"
-            }
-        )
-    else:
-        alignscore_csv = data[["additional_history", "llm_indication"]]
-        alignscore_csv = alignscore_csv.rename(
-            columns={
-                "llm_indication": "generated",
-                "additional_history": "reference",
-            }
-        )
-    alignscore_csv.to_csv(alignscore_csv_path, index=False)
-
-    conda_activate_script = f"""
-    source "$(conda info --base)/etc/profile.d/conda.sh"
-    conda activate alignscore
-    python /mnt/sohn2022/Adrian/rad-llm-pmhx/analysis/alignscore_scorer.py \\
-        --csv_path={alignscore_csv_path} \\
-        --output_path={alignscore_output_path}
-    """
-    subprocess.run(conda_activate_script, shell=True, executable='/bin/bash')
-    align_scores = np.array(pd.read_csv(alignscore_output_path)["align_score"].values)
-
     model_scores = pd.DataFrame({
         "rouge": rouge_scores,
         "medcon": medcon_scores,
-        "radgraph": radgraph_scores,
-        "bertscore": bert_scores,
-        "alignscore": align_scores
+        "radgraph": radgraph_scores
     })
     data = pd.concat([data, model_scores], axis=1)
     data.to_csv(f"llm_evaluation_scores/{args.model}.csv", index=False)

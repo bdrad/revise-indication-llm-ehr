@@ -1,5 +1,5 @@
 from prompt import generate_prompt
-from utils import chat
+from utils import chat_claude3_5
 
 import polars as pl
 import pandas as pd
@@ -10,9 +10,10 @@ from transformers import pipeline
 import tqdm
 import torch
 
-DATASET = "llm_automated_evaluation_dataset"
+# DATASET = "llm_automated_evaluation_dataset"
+DATASET = "reader_evaluation_dataset"
 BASEPATH = "/mnt/sohn2022/Adrian/rad-llm-pmhx/inference/results"
-MODEL = MODEL_NAME = "gpt4o"
+MODEL = MODEL_NAME = "claude3_5"
 
 print(MODEL)
 print("="*20)
@@ -54,7 +55,7 @@ for i in tqdm.tqdm(range(start_idx, end_idx)):
 	messages = [
 		{"role": "user", "content": prompt},
 	]
-	llm_indication = chat(prompt, MODEL)
+	llm_indication = chat_claude3_5(prompt)
 	results_row = {
 		"patientdurablekey": test_row["patientdurablekey"],
 		"exam_type": test_row["exam_type"],
